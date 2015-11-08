@@ -1,12 +1,13 @@
 import $ from 'jquery';
-import bookmarkletLink from './bookmarklet-link';
-import demo from './demo';
 
 const
   /** モジュール名 */
-  MOD_NAME = 'portal',
+  MOD_NAME = 'demo',
   /** HTML */
-  HTML = `<div id="${MOD_NAME}" class="${MOD_NAME}"></div>`;
+  HTML = '' +
+    `<div id="${MOD_NAME}" class="${MOD_NAME}">` +
+      '<p>Demo</p>' +
+    '</div>';
 
 var init, set$cache, $cache;
 
@@ -26,8 +27,6 @@ set$cache = () => {
 init = ($wrapper) => {
   $wrapper.append(HTML);
   set$cache();
-  bookmarkletLink.init($cache.self);
-  demo.init($cache.self);
 };
 
 export default {
