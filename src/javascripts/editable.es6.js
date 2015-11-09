@@ -1,10 +1,33 @@
+import $ from 'jquery';
+import modData from './data';
+import modModel from './model';
+
 const
+  /** script要素のID */
+  SCRIPT_ELEM_ID = 'editable-script',
   /** 非対応ブラウザーに表示するアラートメッセージ */
   ALERT_MESSAGE = '' +
     'This browser is not supported.\n' +
     'Please edit in GoogleChrome.';
 
-var init, isValidBrowser;
+var init, isValidBrowser, set$cache, $cache, onGetData;
+
+/**
+ * jqueryオブジェクトを保持
+ */
+set$cache = () => {
+  $cache = {
+    window: $(window),
+    script: $(`#${SCRIPT_ELEM_ID}`),
+  };
+};
+
+/**
+ * データ取得完了時のコールバック
+ */
+onGetData = () => {
+  console.log(modModel.getConfigMap());
+};
 
 /**
  * 有効なブラウザーかどうか
@@ -22,6 +45,11 @@ init = () => {
     alert(ALERT_MESSAGE);
     return;
   }
+  set$cache();
+  modData.init();
+  modModel.init(modData);
+  $cache.window.on('get-data', onGetData);
+  modModel.getData($cache.script.data('config-src'));
 };
 
 export default {

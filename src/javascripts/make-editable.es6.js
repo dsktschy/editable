@@ -8,5 +8,6 @@ export default () => {
   elem.id = id;
   elem.type = 'text/javascript';
   elem.src = 'javascripts/editable.min.js';
+  elem.setAttribute('data-config-src', 'javascripts/editable-config.json');
   document.getElementsByTagName('head')[0].appendChild(elem);
 };
