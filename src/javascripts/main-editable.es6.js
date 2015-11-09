@@ -1,6 +1,6 @@
 import $ from 'jquery';
-import editable from './editable';
+import modEditable from './editable';
 
 $(() => {
-  editable.init();
+  modEditable.init();
 });

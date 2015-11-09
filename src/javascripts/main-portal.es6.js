@@ -1,6 +1,6 @@
 import $ from 'jquery';
-import portal from './portal';
+import modPortal from './portal';
 
 $(() => {
-  portal.init($('body'));
+  modPortal.init($('body'));
 });

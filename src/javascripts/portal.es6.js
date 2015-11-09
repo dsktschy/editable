@@ -1,6 +1,6 @@
 import $ from 'jquery';
-import bookmarkletLink from './bookmarklet-link';
-import demo from './demo';
+import modBookmarkletLink from './bookmarklet-link';
+import modDemo from './demo';
 
 const
   /** モジュール名 */
@@ -26,8 +26,8 @@ set$cache = () => {
 init = ($wrapper) => {
   $wrapper.append(HTML);
   set$cache();
-  bookmarkletLink.init($cache.self);
-  demo.init($cache.self);
+  modBookmarkletLink.init($cache.self);
+  modDemo.init($cache.self);
 };
 
 export default {
