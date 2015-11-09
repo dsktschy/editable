@@ -4,9 +4,13 @@ const
   /** モジュール名 */
   MOD_NAME = 'editable-target',
   /** ctrl,commandとの同時押下が有効なキーのコード */
-  VALID_SHORTCUT_KEY_CODES = [65, 67, 86, 88, 89, 90];
+  VALID_SHORTCUT_KEY_CODES = [65, 67, 86, 88, 89, 90],
+  /** 入力テキストからスタイルを抜ききれないブラウザーに表示するアラートメッセージ */
+  ALERT_MESSAGE = '' +
+    'In this browser, paste is not supported.\n' +
+    'Please edit in GoogleChrome.';
 
-var init, set$cache, $cache, onKeydown;
+var init, set$cache, $cache, onKeydown, onPaste;
 
 /**
  * jqueryオブジェクトを保持
@@ -38,6 +42,24 @@ onKeydown = ({ctrlKey, metaKey, which, shiftKey}) => {
 };
 
 /**
+ * ペースト時のハンドラー
+ *   リッチテキストからプレーンテキストに、改行を半角スペースに変換する
+ *   IEはスタイルを抜ききれないため非対応とする
+ */
+onPaste = ({originalEvent: {clipboardData}}) => {
+  if (!clipboardData) {
+    alert(ALERT_MESSAGE);
+    return false;
+  }
+  document.execCommand(
+    'insertText',
+    false,
+    (clipboardData.getData('text/plain') || '').replace(/[\n\r]/g, ' ')
+  );
+  return false;
+};
+
+/**
  * module起動
  * @exports
  */
@@ -45,7 +67,10 @@ init = () => {
   set$cache();
   $cache.self
     .on('keydown', onKeydown)
-    .prop('contenteditable', true);
+    .prop('contenteditable', true)
+    .each((index, elem) => {
+      $(elem).on('paste', onPaste);
+    });
 };
 
 export default {
