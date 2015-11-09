@@ -128,7 +128,7 @@ gulp.task('browserify', ['babel'], (done) => {
     }
   };
   for (let name of bsFileNames) {
-    entryFile = `${srcJSDir}main-${name}.js`;
+    entryFile = `${srcJSDir}/${name}/main.js`;
     if (!existsSync(entryFile)) {
       onEnd();
       continue;
