@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import modData from './data';
 import modModel from './model';
+import modTarget from './target';
 
 const
   /** script要素のID */
@@ -48,6 +49,7 @@ init = () => {
   set$cache();
   modData.init();
   modModel.init(modData);
+  modTarget.init();
   $cache.window.on('get-data', onGetData);
   modModel.getData($cache.script.data('config-src'));
 };
