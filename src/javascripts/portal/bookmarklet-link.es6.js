@@ -3,7 +3,7 @@ import makeEditable from './make-editable';
 
 const
   /** モジュール名 */
-  MOD_NAME = 'bookmarklet-link',
+  MOD_NAME = 'portal-bookmarklet-link',
   /** a要素の文言 */
   ANCHOR_TEXT = 'Make editable',
   /** URIエンコードしたmakeEditable関数 */
