@@ -2,6 +2,7 @@ import $ from 'jquery';
 import modData from './data';
 import modModel from './model';
 import modTarget from './target';
+import modMenu from './menu';
 
 const
   /** script要素のID */
@@ -19,6 +20,7 @@ var init, isValidBrowser, set$cache, $cache, onGetData;
 set$cache = () => {
   $cache = {
     window: $(window),
+    body: $('body'),
     script: $(`#${SCRIPT_ELEM_ID}`),
   };
 };
@@ -50,6 +52,7 @@ init = () => {
   modData.init();
   modModel.init(modData);
   modTarget.init();
+  modMenu.init($cache.body);
   $cache.window.on('get-data', onGetData);
   modModel.getData($cache.script.data('config-src'));
 };
