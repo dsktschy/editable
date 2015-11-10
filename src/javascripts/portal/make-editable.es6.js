@@ -7,6 +7,6 @@ export default () => {
   elem = document.createElement('script');
   elem.id = id;
   elem.type = 'text/javascript';
-  elem.src = 'javascripts/editable.min.js';
+  elem.src = '//localhost:3000/javascripts/editable.min.js';
   document.getElementsByTagName('head')[0].appendChild(elem);
 };
