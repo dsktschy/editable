@@ -6,3 +6,4 @@ gulpfile.js
 public/javascripts
 public/stylesheets
 public/maps
+public/editable-config.json

@@ -5,8 +5,8 @@ import modTarget from './target';
 import modMenu from './menu';
 
 const
-  /** script要素のID */
-  SCRIPT_ELEM_ID = 'editable-script',
+  /** ユーザー設定マップのサイトルート相対パス */
+  CONFIG_JSON_URL = '/editable-config.json',
   /** 非対応ブラウザーに表示するアラートメッセージ */
   ALERT_MESSAGE = '' +
     'This browser is not supported.\n' +
@@ -21,7 +21,6 @@ set$cache = () => {
   $cache = {
     window: $(window),
     body: $('body'),
-    script: $(`#${SCRIPT_ELEM_ID}`),
   };
 };
 
@@ -54,7 +53,7 @@ init = () => {
   modTarget.init();
   modMenu.init($cache.body);
   $cache.window.on('get-data', onGetData);
-  modModel.getData($cache.script.data('config-src'));
+  modModel.getData(CONFIG_JSON_URL);
 };
 
 export default {
