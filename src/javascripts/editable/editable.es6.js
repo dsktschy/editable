@@ -18,7 +18,7 @@ const
 
 var
   init, isValidBrowser, set$cache, $cache, onGetData, onClickDownload,
-  getFileName, getFileContent, isReady;
+  getFileName, getFileContent, isReady, getHTML;
 
 /**
  * jqueryオブジェクトを保持
@@ -46,9 +46,19 @@ getFileName = () =>
   window.location.pathname.split('/').pop() || DEFAULT_FILE_NAME;
 
 /**
+ * html要素を取得する
+ */
+getHTML = () => {
+  var $html;
+  $html = $('html').clone();
+  modTarget.reset($html);
+  return $html[0].outerHTML;
+};
+
+/**
  * ファイルの内容を取得する
  */
-getFileContent = () => modModel.getConfigMap()[MOD_NAME].doctype;
+getFileContent = () => modModel.getConfigMap()[MOD_NAME].doctype + getHTML();
 
 /**
  * データ取得完了時のコールバック

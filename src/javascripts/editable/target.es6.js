@@ -10,7 +10,7 @@ const
     'In this browser, paste is not supported.\n' +
     'Please edit in GoogleChrome.';
 
-var init, set$cache, $cache, onKeydown, onPaste;
+var init, set$cache, $cache, onKeydown, onPaste, reset;
 
 /**
  * jqueryオブジェクトを保持
@@ -19,6 +19,14 @@ set$cache = () => {
   $cache = {
     self: $(`.${MOD_NAME}`),
   };
+};
+
+/**
+ * 渡されたhtmlからeditableによる変更を取り消す
+ * @exports
+ */
+reset = ($html) => {
+  $html.find(`.${MOD_NAME}`).removeAttr('contenteditable');
 };
 
 /**
@@ -75,4 +83,5 @@ init = () => {
 
 export default {
   init,
+  reset,
 };
