@@ -1,8 +1,9 @@
 import $ from 'jquery';
 import modData from './data';
 import modModel from './model';
-import modTarget from './target';
+import modScript from './script';
 import modMenu from './menu';
+import modTarget from './target';
 
 const
   /** モジュール名 */
@@ -51,8 +52,9 @@ getFileName = () =>
 getHTML = () => {
   var $html;
   $html = $('html').clone();
-  modTarget.reset($html);
+  modScript.reset($html);
   modMenu.reset($html);
+  modTarget.reset($html);
   return $html[0].outerHTML;
 };
 
@@ -102,8 +104,8 @@ init = () => {
   set$cache();
   modData.init();
   modModel.init(modData);
-  modTarget.init();
   modMenu.init($cache.body);
+  modTarget.init();
   $cache.window.on('get-data', onGetData);
   $cache.window.on('click-download', onClickDownload);
   modModel.getData(CONFIG_JSON_URL);
