@@ -52,6 +52,7 @@ getHTML = () => {
   var $html;
   $html = $('html').clone();
   modTarget.reset($html);
+  modMenu.reset($html);
   return $html[0].outerHTML;
 };
 

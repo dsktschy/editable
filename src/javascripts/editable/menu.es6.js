@@ -11,7 +11,7 @@ const
       `<span>${DOWNLOAD_ELEM_TEXT}</span>` +
     '</div>';
 
-var init, set$cache, $cache, onClick;
+var init, set$cache, $cache, onClick, reset;
 
 /**
  * jqueryオブジェクトを保持
@@ -22,6 +22,14 @@ set$cache = () => {
     download: $(`#${MOD_NAME}`).find('span'),
     window: $(window),
   };
+};
+
+/**
+ * 渡されたhtmlからeditableによる変更を取り消す
+ * @exports
+ */
+reset = ($html) => {
+  $html.find(`#${MOD_NAME}`).remove();
 };
 
 /**
@@ -43,4 +51,5 @@ init = ($wrapper) => {
 
 export default {
   init,
+  reset,
 };
