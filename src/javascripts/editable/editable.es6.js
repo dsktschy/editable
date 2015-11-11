@@ -5,6 +5,8 @@ import modTarget from './target';
 import modMenu from './menu';
 
 const
+  /** モジュール名 */
+  MOD_NAME = 'editable',
   /** ユーザー設定マップのサイトルート相対パス */
   CONFIG_JSON_URL = '/editable-config.json',
   /** 非対応ブラウザーに表示するアラートメッセージ */
@@ -16,7 +18,7 @@ const
 
 var
   init, isValidBrowser, set$cache, $cache, onGetData, onClickDownload,
-  getFileName, getFileContent;
+  getFileName, getFileContent, isReady;
 
 /**
  * jqueryオブジェクトを保持
@@ -45,15 +47,14 @@ getFileName = () =>
 
 /**
  * ファイルの内容を取得する
- *   DOCTYPE宣言部分は完全再現が不可能なためユーザー指定を可能にする
  */
-getFileContent = () => 'file content';
+getFileContent = () => modModel.getConfigMap()[MOD_NAME].doctype;
 
 /**
  * データ取得完了時のコールバック
  */
 onGetData = () => {
-  console.log(modModel.getConfigMap());
+  isReady = true;
 };
 
 /**
@@ -63,6 +64,9 @@ onGetData = () => {
  */
 onClickDownload = () => {
   var name, blob;
+  if (!isReady) {
+    return;
+  }
   name = getFileName();
   blob = new Blob([getFileContent()]);
   if (window.navigator.msSaveBlob) {
