@@ -55,7 +55,9 @@ getHTML = () => {
   modScript.reset($html);
   modMenu.reset($html);
   modTarget.reset($html);
-  return $html[0].outerHTML;
+  return $html[0].outerHTML
+    .replace(/><head/, `>\n${modModel.getConfigMap()[MOD_NAME].indent}<head`)
+    .replace(/\n\n<\/body>/, '</body>\n');
 };
 
 /**
