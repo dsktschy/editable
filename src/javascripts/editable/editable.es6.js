@@ -10,9 +10,13 @@ const
   /** 非対応ブラウザーに表示するアラートメッセージ */
   ALERT_MESSAGE = '' +
     'This browser is not supported.\n' +
-    'Please edit in GoogleChrome.';
+    'Please edit in GoogleChrome.',
+  /** URLのベースネームが存在しない場合に使用するダウンロードファイル名 */
+  DEFAULT_FILE_NAME = 'index.html';
 
-var init, isValidBrowser, set$cache, $cache, onGetData;
+var
+  init, isValidBrowser, set$cache, $cache, onGetData, onClickDownload,
+  getFileName, getFileContent;
 
 /**
  * jqueryオブジェクトを保持
@@ -25,6 +29,27 @@ set$cache = () => {
 };
 
 /**
+ * 有効なブラウザーかどうか
+ *   IE9以下とSafari(downloadできない)は非対応とする
+ *   FileReaderがIE9以下には存在せずSafariのみobject扱いであることを利用する
+ */
+isValidBrowser = () => typeof window.FileReader === 'function';
+
+/**
+ * ファイル名を取得する
+ *   ドメインのみである場合はDEFAULT_FILE_NAMEを
+ *   それ以外の場合はURLのベースネームをファイル名として使用する
+ */
+getFileName = () =>
+  window.location.pathname.split('/').pop() || DEFAULT_FILE_NAME;
+
+/**
+ * ファイルの内容を取得する
+ *   DOCTYPE宣言部分は完全再現が不可能なためユーザー指定を可能にする
+ */
+getFileContent = () => 'file content';
+
+/**
  * データ取得完了時のコールバック
  */
 onGetData = () => {
@@ -32,11 +57,23 @@ onGetData = () => {
 };
 
 /**
- * 有効なブラウザーかどうか
- *   IE9以下とSafari(downloadできない)は非対応とする
- *   FileReaderがIE9以下には存在せずSafariのみobject扱いであることを利用する
+ * ダウンロードリンククリック時のハンドラー
+ *   テキストをファイル化し、名前を付けてダウンロードする
+ *   IEとそれ以外で処理を分ける
  */
-isValidBrowser = () => typeof window.FileReader === 'function';
+onClickDownload = () => {
+  var name, blob;
+  name = getFileName();
+  blob = new Blob([getFileContent()]);
+  if (window.navigator.msSaveBlob) {
+    window.navigator.msSaveBlob(blob, name);
+    return;
+  }
+  $('<a>').attr({
+    download: name,
+    href: (window.URL || window.webkitURL).createObjectURL(blob),
+  })[0].dispatchEvent(new MouseEvent('click'));
+};
 
 /**
  * module起動
@@ -53,6 +90,7 @@ init = () => {
   modTarget.init();
   modMenu.init($cache.body);
   $cache.window.on('get-data', onGetData);
+  $cache.window.on('click-download', onClickDownload);
   modModel.getData(CONFIG_JSON_URL);
 };
 

@@ -11,7 +11,7 @@ const
       `<span>${DOWNLOAD_ELEM_TEXT}</span>` +
     '</div>';
 
-var init, set$cache, $cache;
+var init, set$cache, $cache, onClick;
 
 /**
  * jqueryオブジェクトを保持
@@ -19,7 +19,16 @@ var init, set$cache, $cache;
 set$cache = () => {
   $cache = {
     self: $(`#${MOD_NAME}`),
+    download: $(`#${MOD_NAME}`).find('span'),
+    window: $(window),
   };
+};
+
+/**
+ * ダウンロードリンククリック時のハンドラー
+ */
+onClick = () => {
+  $cache.window.trigger('click-download');
 };
 
 /**
@@ -29,6 +38,7 @@ set$cache = () => {
 init = ($wrapper) => {
   $wrapper.prepend(HTML);
   set$cache();
+  $cache.download.on('click', onClick);
 };
 
 export default {
