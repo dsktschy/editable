@@ -2,5 +2,5 @@ import $ from 'jquery';
 import modPortal from './portal';
 
 $(() => {
-  modPortal.init($('body'));
+  modPortal.init();
 });

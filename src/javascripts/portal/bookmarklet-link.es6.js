@@ -3,18 +3,9 @@ import makeEditable from './make-editable';
 
 const
   /** モジュール名 */
-  MOD_NAME = 'portal-bookmarklet-link',
-  /** a要素の文言 */
-  ANCHOR_TEXT = 'Make editable',
-  /** URIエンコードしたmakeEditable関数 */
-  ENCODED_MAKE_EDITABLE = encodeURIComponent(makeEditable.toString()),
-  /** HTML */
-  HTML = '' +
-    `<div id="${MOD_NAME}" class="${MOD_NAME}">` +
-      `<a href="javascript:(${ENCODED_MAKE_EDITABLE})();">${ANCHOR_TEXT}</a>` +
-    '</div>';
+  MOD_NAME = 'portal-bookmarklet-link';
 
-var init, set$cache, $cache;
+var init, set$cache, $cache, initAnchor;
 
 /**
  * jqueryオブジェクトを保持
@@ -22,16 +13,26 @@ var init, set$cache, $cache;
 set$cache = () => {
   $cache = {
     self: $(`#${MOD_NAME}`),
+    anchor: $(`#${MOD_NAME}`).find('a'),
   };
+};
+
+/**
+ * a要素にブックマークレットを設定する
+ */
+initAnchor = () => {
+  var encodedMakeEditable;
+  encodedMakeEditable = encodeURIComponent(makeEditable.toString());
+  $cache.anchor.attr('href', `javascript:(${encodedMakeEditable})();`);
 };
 
 /**
  * module起動
  * @exports
  */
-init = ($wrapper) => {
-  $wrapper.append(HTML);
+init = () => {
   set$cache();
+  initAnchor();
 };
 
 export default {

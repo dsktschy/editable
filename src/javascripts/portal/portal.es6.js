@@ -4,9 +4,7 @@ import modDemo from './demo';
 
 const
   /** モジュール名 */
-  MOD_NAME = 'portal',
-  /** HTML */
-  HTML = `<div id="${MOD_NAME}" class="${MOD_NAME}"></div>`;
+  MOD_NAME = 'portal';
 
 var init, set$cache, $cache;
 
@@ -23,11 +21,10 @@ set$cache = () => {
  * module起動
  * @exports
  */
-init = ($wrapper) => {
-  $wrapper.append(HTML);
+init = () => {
   set$cache();
-  modBookmarkletLink.init($cache.self);
-  modDemo.init($cache.self);
+  modBookmarkletLink.init();
+  modDemo.init();
 };
 
 export default {
