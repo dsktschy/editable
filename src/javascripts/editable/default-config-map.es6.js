@@ -5,5 +5,7 @@ export default {
     doctype: '<!DOCTYPE html>\n',
     /** インデント文字列 */
     indent: '  ',
+    /** ダウンロード時に削除されるべき要素を指すセレクター */
+    removedElements: [],
   },
 };

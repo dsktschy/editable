@@ -55,6 +55,9 @@ getHTML = () => {
   modScript.reset($html);
   modMenu.reset($html);
   modTarget.reset($html);
+  for (let selector of modModel.getConfigMap()[MOD_NAME].removedElements) {
+    $html.find(selector).remove();
+  }
   return $html[0].outerHTML
     .replace(/><head/, `>\n${modModel.getConfigMap()[MOD_NAME].indent}<head`)
     .replace(/\n\n<\/body>/, '</body>\n');
