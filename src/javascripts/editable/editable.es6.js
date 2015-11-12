@@ -51,13 +51,17 @@ getFileName = () =>
  */
 getHTML = () => {
   var $html,
-    {removedElements, indent, eol} = modModel.getConfigMap()[MOD_NAME];
+    {removedElements, removedAttributes, indent, eol}
+      = modModel.getConfigMap()[MOD_NAME];
   $html = $('html').clone();
   modScript.reset($html);
   modMenu.reset($html);
   modTarget.reset($html);
   for (let selector of removedElements) {
     $html.find(selector).remove();
+  }
+  for (let [selector, attr] of removedAttributes) {
+    $html.find(selector).removeAttr(attr);
   }
   return $html[0].outerHTML
     .replace(/><head/, `>\n${indent}<head`)

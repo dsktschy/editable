@@ -7,6 +7,11 @@ export default {
     indent: '  ',
     /** ダウンロード時に削除されるべき要素を指すセレクター */
     removedElements: [],
+    /**
+     * ダウンロード時に削除されるべき属性とそれを持つ要素のセレクター
+     *   [selector, attributeName]の形式で指定
+     */
+    removedAttributes: [],
     /** ファイルの末尾の空行文字(存在しない場合は空文字を指定) */
     eol: '\n',
   },
