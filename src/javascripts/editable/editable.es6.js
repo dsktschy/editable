@@ -50,23 +50,27 @@ getFileName = () =>
  * html要素を取得する
  */
 getHTML = () => {
-  var $html;
+  var $html,
+    {removedElements, indent, eol} = modModel.getConfigMap()[MOD_NAME];
   $html = $('html').clone();
   modScript.reset($html);
   modMenu.reset($html);
   modTarget.reset($html);
-  for (let selector of modModel.getConfigMap()[MOD_NAME].removedElements) {
+  for (let selector of removedElements) {
     $html.find(selector).remove();
   }
   return $html[0].outerHTML
-    .replace(/><head/, `>\n${modModel.getConfigMap()[MOD_NAME].indent}<head`)
-    .replace(/\n\n<\/body>/, '</body>\n');
+    .replace(/><head/, `>\n${indent}<head`)
+    .replace(new RegExp(`\n${eol}</body>`), '</body>\n');
 };
 
 /**
  * ファイルの内容を取得する
  */
-getFileContent = () => modModel.getConfigMap()[MOD_NAME].doctype + getHTML();
+getFileContent = () => {
+  var {doctype, eol} = modModel.getConfigMap()[MOD_NAME];
+  return doctype + getHTML() + eol;
+};
 
 /**
  * データ取得完了時のコールバック
