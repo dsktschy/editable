@@ -57,6 +57,7 @@ getHTML = () => {
   modScript.reset($html);
   modMenu.reset($html);
   modTarget.reset($html);
+  modTarget.convertLink($html);
   for (let selector of removedElements) {
     $html.find(selector).remove();
   }

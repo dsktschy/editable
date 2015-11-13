@@ -10,7 +10,7 @@ const
     'In this browser, paste is not supported.\n' +
     'Please edit in GoogleChrome.';
 
-var init, set$cache, $cache, onKeydown, onPaste, reset;
+var init, set$cache, $cache, onKeydown, onPaste, reset, convertLink;
 
 /**
  * jqueryオブジェクトを保持
@@ -27,6 +27,24 @@ set$cache = () => {
  */
 reset = ($html) => {
   $html.find(`.${MOD_NAME}`).removeAttr('contenteditable');
+};
+
+/**
+ * 渡されたhtml中のmarkdown記法のリンクをHTMLのa要素へ変換する
+ * @exports
+ */
+convertLink = ($html) => {
+  $html.find(`.${MOD_NAME}`).html((index, html) => html.replace(
+    /\[.*?\]\(.*?\)/mg,
+    (match) => {
+      var brackets, parentheses, url, text;
+      brackets = match.match(/\[.*?\]\(/)[0].slice(0, -1);
+      parentheses = match.replace(brackets, '');
+      url = parentheses.slice(1, -1);
+      text = brackets.slice(1, -1);
+      return `<a href="${url}">${text}</a>`;
+    }
+  ));
 };
 
 /**
@@ -84,4 +102,5 @@ init = () => {
 export default {
   init,
   reset,
+  convertLink,
 };
