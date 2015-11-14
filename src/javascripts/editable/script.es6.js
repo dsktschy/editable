@@ -1,6 +1,6 @@
 const
-  /** モジュール名 */
-  MOD_NAME = 'editable-script';
+  /** HTML要素名 */
+  ELEM_NAME = 'editable-script';
 
 var reset;
 
@@ -9,7 +9,7 @@ var reset;
  * @exports
  */
 reset = ($html) => {
-  $html.find(`#${MOD_NAME}`).remove();
+  $html.find(`#${ELEM_NAME}`).remove();
 };
 
 export default {

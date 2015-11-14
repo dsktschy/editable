@@ -1,8 +1,8 @@
 import $ from 'jquery';
 
 const
-  /** モジュール名 */
-  MOD_NAME = 'portal-demo';
+  /** HTML要素名 */
+  ELEM_NAME = 'portal-demo';
 
 var init, set$cache, $cache;
 
@@ -11,7 +11,7 @@ var init, set$cache, $cache;
  */
 set$cache = () => {
   $cache = {
-    self: $(`#${MOD_NAME}`),
+    self: $(`#${ELEM_NAME}`),
   };
 };
 

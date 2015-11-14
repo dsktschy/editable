@@ -1,8 +1,8 @@
 import $ from 'jquery';
 
 const
-  /** モジュール名 */
-  MOD_NAME = 'editable-target',
+  /** HTML要素名 */
+  ELEM_NAME = 'editable-target',
   /** ctrl,commandとの同時押下が有効なキーのコード */
   VALID_SHORTCUT_KEY_CODES = [65, 67, 86, 88, 89, 90],
   /** 入力テキストからスタイルを抜ききれないブラウザーに表示するアラートメッセージ */
@@ -17,7 +17,7 @@ var init, set$cache, $cache, onKeydown, onPaste, reset, convertLink;
  */
 set$cache = () => {
   $cache = {
-    self: $(`.${MOD_NAME}`),
+    self: $(`.${ELEM_NAME}`),
   };
 };
 
@@ -26,7 +26,7 @@ set$cache = () => {
  * @exports
  */
 reset = ($html) => {
-  $html.find(`.${MOD_NAME}`).removeAttr('contenteditable');
+  $html.find(`.${ELEM_NAME}`).removeAttr('contenteditable');
 };
 
 /**
@@ -34,7 +34,7 @@ reset = ($html) => {
  * @exports
  */
 convertLink = ($html) => {
-  $html.find(`.${MOD_NAME}`).html((index, html) => html.replace(
+  $html.find(`.${ELEM_NAME}`).html((index, html) => html.replace(
     /\[.*?\]\(.*?\)/mg,
     (match) => {
       var brackets, parentheses, url, text;

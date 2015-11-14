@@ -2,8 +2,8 @@ import $ from 'jquery';
 import makeEditable from './make-editable';
 
 const
-  /** モジュール名 */
-  MOD_NAME = 'portal-bookmarklet-link';
+  /** HTML要素名 */
+  ELEM_NAME = 'portal-bookmarklet-link';
 
 var init, set$cache, $cache, initAnchor;
 
@@ -12,8 +12,8 @@ var init, set$cache, $cache, initAnchor;
  */
 set$cache = () => {
   $cache = {
-    self: $(`#${MOD_NAME}`),
-    anchor: $(`#${MOD_NAME}`).find('a'),
+    self: $(`#${ELEM_NAME}`),
+    anchor: $(`#${ELEM_NAME}`).find('a'),
   };
 };
 

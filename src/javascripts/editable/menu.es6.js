@@ -1,13 +1,13 @@
 import $ from 'jquery';
 
 const
-  /** モジュール名 */
-  MOD_NAME = 'editable-menu',
+  /** HTML要素名 */
+  ELEM_NAME = 'editable-menu',
   /** ダウンロードリンク文言 */
   DOWNLOAD_ELEM_TEXT = 'Download',
   /** HTML */
   HTML = '' +
-    `<div id="${MOD_NAME}" class="${MOD_NAME}">` +
+    `<div id="${ELEM_NAME}" class="${ELEM_NAME}">` +
       `<span>${DOWNLOAD_ELEM_TEXT}</span>` +
     '</div>';
 
@@ -18,8 +18,8 @@ var init, set$cache, $cache, onClick, reset;
  */
 set$cache = () => {
   $cache = {
-    self: $(`#${MOD_NAME}`),
-    download: $(`#${MOD_NAME}`).find('span'),
+    self: $(`#${ELEM_NAME}`),
+    download: $(`#${ELEM_NAME}`).find('span'),
     window: $(window),
   };
 };
@@ -29,7 +29,7 @@ set$cache = () => {
  * @exports
  */
 reset = ($html) => {
-  $html.find(`#${MOD_NAME}`).remove();
+  $html.find(`#${ELEM_NAME}`).remove();
 };
 
 /**

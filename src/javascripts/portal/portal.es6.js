@@ -3,8 +3,8 @@ import modBookmarkletLink from './bookmarklet-link';
 import modDemo from './demo';
 
 const
-  /** モジュール名 */
-  MOD_NAME = 'portal';
+  /** HTML要素名 */
+  ELEM_NAME = 'portal';
 
 var init, set$cache, $cache;
 
@@ -13,7 +13,7 @@ var init, set$cache, $cache;
  */
 set$cache = () => {
   $cache = {
-    self: $(`#${MOD_NAME}`),
+    self: $(`#${ELEM_NAME}`),
   };
 };
 
