@@ -4,6 +4,7 @@ import modModel from './model';
 import modScript from './script';
 import modMenu from './menu';
 import modTarget from './target';
+import modGroup from './group';
 
 const
   /** モジュール名 */
@@ -120,6 +121,7 @@ init = () => {
   modModel.init(modData);
   modMenu.init($cache.body);
   modTarget.init();
+  modGroup.init(modModel);
   $cache.window.on('get-data', onGetData);
   $cache.window.on('click-download', onClickDownload);
   modModel.getData(CONFIG_JSON_URL);

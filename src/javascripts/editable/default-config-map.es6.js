@@ -15,4 +15,28 @@ export default {
     /** ファイルの末尾の空行文字(存在しない場合は空文字を指定) */
     eol: '\n',
   },
+  /** for triggers */
+  triggers: {
+    /** トリガー要素の並び順とテキスト */
+    maps: [
+      {
+        /** 前方挿入ハンドラー */
+        handlerName: 'insertBefore',
+        /** トリガー要素の文字列 */
+        text: '<',
+      },
+      {
+        /** 削除ハンドラー */
+        handlerName: 'remove',
+        /** トリガー要素の文字列 */
+        text: '-',
+      },
+      {
+        /** 後方挿入ハンドラー */
+        handlerName: 'insertAfter',
+        /** トリガー要素の文字列 */
+        text: '>',
+      },
+    ],
+  },
 };
