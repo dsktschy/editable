@@ -15,7 +15,7 @@ const
 
 var
   init, set$cache, $cache, onGetData, modModel, insertBefore, insertAfter,
-  remove, handlerMap;
+  remove, handlerMap, setVisible;
 
 /**
  * jqueryオブジェクトを保持
@@ -54,6 +54,14 @@ remove = () => {
 handlerMap = {insertBefore, insertAfter, remove};
 
 /**
+ * 渡された要素内のトリガーの表示/非表示を切り替える
+ * @exports
+ */
+setVisible = (bool, $group) => {
+  $group.find(`.${ELEM_NAME}`).css('opacity', +bool);
+};
+
+/**
  * データ取得完了時のコールバック
  */
 onGetData = () => {
@@ -76,9 +84,11 @@ init = ($wrapper, _modModel) => {
   modModel = _modModel;
   $wrapper.prepend(HTML);
   set$cache();
+  $cache.self.css('opacity', 0);
   $cache.window.on('get-data', onGetData);
 };
 
 export default {
   init,
+  setVisible,
 };

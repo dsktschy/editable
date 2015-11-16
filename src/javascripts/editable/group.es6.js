@@ -5,7 +5,7 @@ const
   /** HTML要素名 */
   ELEM_NAME = 'editable-group';
 
-var init, set$cache, $cache, cancelStaticPosOf;
+var init, set$cache, $cache, cancelStaticPosOf, onMouseenter, onMouseleave;
 
 /**
  * jqueryオブジェクトを保持
@@ -29,15 +29,32 @@ cancelStaticPosOf = ($elem) => {
 };
 
 /**
+ * カーソルが乗った時のハンドラー
+ */
+onMouseenter = ({currentTarget}) => {
+  modTriggers.setVisible(true, $(currentTarget));
+};
+
+/**
+ * カーソルが離れた時のハンドラー
+ */
+onMouseleave = ({currentTarget}) => {
+  modTriggers.setVisible(false, $(currentTarget));
+};
+
+/**
  * module起動
  * @exports
  */
 init = (modModel) => {
   set$cache();
   modTriggers.init($cache.self, modModel);
-  $cache.self.each((index, elem) => {
-    cancelStaticPosOf($(elem));
-  });
+  $cache.self
+    .each((index, elem) => {
+      cancelStaticPosOf($(elem));
+    })
+    .on('mouseenter', onMouseenter)
+    .on('mouseleave', onMouseleave);
 };
 
 export default {
