@@ -53,8 +53,10 @@ init = (modModel) => {
     .each((index, elem) => {
       cancelStaticPosOf($(elem));
     })
-    .on('mouseenter', onMouseenter)
-    .on('mouseleave', onMouseleave);
+    .on({
+      mouseenter: onMouseenter,
+      mouseleave: onMouseleave,
+    });
 };
 
 export default {

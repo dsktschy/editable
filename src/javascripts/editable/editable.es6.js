@@ -122,8 +122,10 @@ init = () => {
   modMenu.init($cache.body);
   modTarget.init();
   modGroup.init(modModel);
-  $cache.window.on('get-data', onGetData);
-  $cache.window.on('click-download', onClickDownload);
+  $cache.window.on({
+    'get-data': onGetData,
+    'click-download': onClickDownload,
+  });
   modModel.getData(CONFIG_JSON_URL);
 };
 
