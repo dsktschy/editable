@@ -54,7 +54,7 @@ getHTML = () => {
   var $html,
     {removedElements, removedAttributes, indent, eol}
       = modModel.getConfigMap()[MOD_NAME];
-  $html = $('html').clone();
+  $html = $('html').clone(true);
   modScript.reset($html);
   modMenu.reset($html);
   modTarget.reset($html);

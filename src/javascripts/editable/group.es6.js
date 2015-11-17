@@ -5,12 +5,14 @@ const
   /** モジュール名 */
   MOD_NAME = 'group',
   /** HTML要素名 */
-  ELEM_NAME = 'editable-group';
+  ELEM_NAME = 'editable-group',
+  /** style属性が書き換えられた要素に付与するdata属性の名前 */
+  EDITED_STYLE_DATA_NAME = 'is-edited-style';
 
 var
   init, set$cache, $cache, cancelStaticPosOf, onMouseenter, onMouseleave,
   createCloneOf, insertCloneOf, onClickTrigger, modModel, remove, removeMarker,
-  reset;
+  reset, resetStyleAttrOf;
 
 /**
  * jqueryオブジェクトを保持
@@ -31,7 +33,24 @@ cancelStaticPosOf = ($elem) => {
   }
   $elem
     .css('position', 'relative')
-    .data('is-edited-style', true);
+    .data(EDITED_STYLE_DATA_NAME, true);
+};
+
+/**
+ * editableによるstyle属性の変更を取り消す
+ */
+resetStyleAttrOf = ($elem) => {
+  var regExp, resetValue;
+  if (!$elem.data(EDITED_STYLE_DATA_NAME)) {
+    return;
+  }
+  regExp = /position\s*:\s*relative\s*;\s*/;
+  resetValue = $elem.attr('style').replace(regExp, '');
+  if (resetValue.indexOf(':') > -1) {
+    $elem.attr('style', resetValue);
+  } else {
+    $elem.removeAttr('style');
+  }
 };
 
 /**
@@ -87,7 +106,12 @@ removeMarker = (html) => {
  * 渡されたhtmlからeditableによる変更を取り消す
  * @exports
  */
-reset = modTriggers.reset;
+reset = ($html) => {
+  $html.find(`.${ELEM_NAME}`).each((index, elem) => {
+    resetStyleAttrOf($(elem));
+  });
+  modTriggers.reset($html);
+};
 
 /**
  * トリガー要素がクリックされた時のハンドラー
