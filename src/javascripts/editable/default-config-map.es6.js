@@ -24,6 +24,8 @@ export default {
   group: {
     /** インデント文字列 */
     indent: '  ',
+    /** 削除した箇所へ代わりに設定される文字列 */
+    removedElemMarker: '<!--editable-removed-element-marker-->',
   },
   /** for triggers */
   triggers: {

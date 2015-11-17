@@ -9,7 +9,7 @@ const
 
 var
   init, set$cache, $cache, cancelStaticPosOf, onMouseenter, onMouseleave,
-  createCloneOf, insertCloneOf, onClickTrigger, modModel;
+  createCloneOf, insertCloneOf, onClickTrigger, modModel, remove, removeMarker;
 
 /**
  * jqueryオブジェクトを保持
@@ -63,6 +63,26 @@ insertCloneOf = ($group, direction) => {
 };
 
 /**
+ * 渡されたグループを削除しグループ削除箇所を示すマーカーを挿入する
+ */
+remove = ($group) => {
+  var {removedElemMarker} = modModel.getConfigMap()[MOD_NAME];
+  modTriggers.setVisible(true, $group.next(`.${ELEM_NAME}`));
+  $group
+    .before(removedElemMarker)
+    .remove();
+};
+
+/**
+ * 渡された文字列からグループ削除箇所のマーカーを削除する
+ * @exports
+ */
+removeMarker = (html) => {
+  var {removedElemMarker} = modModel.getConfigMap()[MOD_NAME];
+  return html.replace(new RegExp(`\\s*${removedElemMarker}`, 'mg'), '');
+};
+
+/**
  * トリガー要素がクリックされた時のハンドラー
  */
 onClickTrigger = (event, trigger) => {
@@ -74,6 +94,9 @@ onClickTrigger = (event, trigger) => {
       break;
     case 'insert-after':
       insertCloneOf($group, 'after');
+      break;
+    case 'remove':
+      remove($group);
       break;
   }
 };
@@ -109,11 +132,12 @@ init = (_modModel) => {
       mouseleave: onMouseleave,
     });
   $cache.window.on(
-    'click-trigger.insert-before.insert-after',
+    'click-trigger.insert-before.insert-after.remove',
     onClickTrigger
   );
 };
 
 export default {
   init,
+  removeMarker,
 };

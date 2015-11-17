@@ -65,7 +65,7 @@ getHTML = () => {
   for (let [selector, attr] of removedAttributes) {
     $html.find(selector).removeAttr(attr);
   }
-  return $html[0].outerHTML
+  return modGroup.removeMarker($html[0].outerHTML)
     .replace(/><head/, `>\n${indent}<head`)
     .replace(new RegExp(`\n${eol}</body>`), '</body>\n');
 };
