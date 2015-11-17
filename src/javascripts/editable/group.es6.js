@@ -9,7 +9,8 @@ const
 
 var
   init, set$cache, $cache, cancelStaticPosOf, onMouseenter, onMouseleave,
-  createCloneOf, insertCloneOf, onClickTrigger, modModel, remove, removeMarker;
+  createCloneOf, insertCloneOf, onClickTrigger, modModel, remove, removeMarker,
+  reset;
 
 /**
  * jqueryオブジェクトを保持
@@ -83,6 +84,12 @@ removeMarker = (html) => {
 };
 
 /**
+ * 渡されたhtmlからeditableによる変更を取り消す
+ * @exports
+ */
+reset = modTriggers.reset;
+
+/**
  * トリガー要素がクリックされた時のハンドラー
  */
 onClickTrigger = (event, trigger) => {
@@ -140,4 +147,5 @@ init = (_modModel) => {
 export default {
   init,
   removeMarker,
+  reset,
 };

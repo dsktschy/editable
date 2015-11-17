@@ -13,7 +13,7 @@ const
       '<span></span>' +
     '</div>';
 
-var init, set$cache, $cache, onGetData, modModel, setVisible;
+var init, set$cache, $cache, onGetData, modModel, setVisible, reset;
 
 /**
  * jqueryオブジェクトを保持
@@ -31,6 +31,14 @@ set$cache = () => {
  */
 setVisible = (bool, $group) => {
   $group.find(`.${ELEM_NAME}`).css('opacity', +bool);
+};
+
+/**
+ * 渡されたhtmlからeditableによる変更を取り消す
+ * @exports
+ */
+reset = ($html) => {
+  $html.find(`.${ELEM_NAME}`).remove();
 };
 
 /**
@@ -65,4 +73,5 @@ init = ($wrapper, _modModel) => {
 export default {
   init,
   setVisible,
+  reset,
 };
