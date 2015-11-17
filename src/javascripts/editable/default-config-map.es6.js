@@ -15,25 +15,35 @@ export default {
     /** ファイルの末尾の空行文字(存在しない場合は空文字を指定) */
     eol: '\n',
   },
+  /** for target */
+  target: {
+    /** 要素増加時に仮に設定しておく文字列 */
+    defaultText: 'Edit here!',
+  },
+  /** for group */
+  group: {
+    /** インデント文字列 */
+    indent: '  ',
+  },
   /** for triggers */
   triggers: {
     /** トリガー要素の並び順とテキスト */
     maps: [
       {
-        /** 前方挿入ハンドラー */
-        handlerName: 'insertBefore',
+        /** 発生させるクリックイベントの名前空間 */
+        name: 'insert-before',
         /** トリガー要素の文字列 */
         text: '<',
       },
       {
-        /** 削除ハンドラー */
-        handlerName: 'remove',
+        /** 発生させるクリックイベントの名前空間 */
+        name: 'remove',
         /** トリガー要素の文字列 */
         text: '-',
       },
       {
-        /** 後方挿入ハンドラー */
-        handlerName: 'insertAfter',
+        /** 発生させるクリックイベントの名前空間 */
+        name: 'insert-after',
         /** トリガー要素の文字列 */
         text: '>',
       },

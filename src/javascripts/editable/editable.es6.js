@@ -120,7 +120,7 @@ init = () => {
   modData.init();
   modModel.init(modData);
   modMenu.init($cache.body);
-  modTarget.init();
+  modTarget.init(modModel);
   modGroup.init(modModel);
   $cache.window.on({
     'get-data': onGetData,

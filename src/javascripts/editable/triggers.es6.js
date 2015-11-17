@@ -13,9 +13,7 @@ const
       '<span></span>' +
     '</div>';
 
-var
-  init, set$cache, $cache, onGetData, modModel, insertBefore, insertAfter,
-  remove, handlerMap, setVisible;
+var init, set$cache, $cache, onGetData, modModel, setVisible;
 
 /**
  * jqueryオブジェクトを保持
@@ -26,32 +24,6 @@ set$cache = () => {
     window: $(window),
   };
 };
-
-/**
- *
- */
-insertBefore = () => {
-
-};
-
-/**
- *
- */
-insertAfter = () => {
-
-};
-
-/**
- *
- */
-remove = () => {
-
-};
-
-/**
- * ハンドラー関数マップ
- */
-handlerMap = {insertBefore, insertAfter, remove};
 
 /**
  * 渡された要素内のトリガーの表示/非表示を切り替える
@@ -68,9 +40,11 @@ onGetData = () => {
   var {maps} = modModel.getConfigMap()[MOD_NAME];
   $cache.self.each((index, triggers) => {
     $(triggers).children().each((_index, trigger) => {
-      var {handlerName, text} = maps[_index];
+      var {name, text} = maps[_index];
       $(trigger)
-        .on('click', handlerMap[handlerName])
+        .on('click', (event) => {
+          $cache.window.trigger(`click-trigger.${name}`, [event.currentTarget]);
+        })
         .html(text);
     });
   });

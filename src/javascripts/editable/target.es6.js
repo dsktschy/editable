@@ -1,6 +1,8 @@
 import $ from 'jquery';
 
 const
+  /** モジュール名 */
+  MOD_NAME = 'target',
   /** HTML要素名 */
   ELEM_NAME = 'editable-target',
   /** ctrl,commandとの同時押下が有効なキーのコード */
@@ -10,7 +12,9 @@ const
     'In this browser, paste is not supported.\n' +
     'Please edit in GoogleChrome.';
 
-var init, set$cache, $cache, onKeydown, onPaste, reset, convertLink;
+var
+  init, set$cache, $cache, onKeydown, onPaste, reset, convertLink,
+  onCreateGroupClone, modModel;
 
 /**
  * jqueryオブジェクトを保持
@@ -18,6 +22,7 @@ var init, set$cache, $cache, onKeydown, onPaste, reset, convertLink;
 set$cache = () => {
   $cache = {
     self: $(`.${ELEM_NAME}`),
+    window: $(window),
   };
 };
 
@@ -86,10 +91,20 @@ onPaste = ({originalEvent: {clipboardData}}) => {
 };
 
 /**
+ * グループのクローンが生成された時のハンドラー
+ *   仮文字列を設定する
+ */
+onCreateGroupClone = (event, $clone) => {
+  var {defaultText} = modModel.getConfigMap()[MOD_NAME];
+  $clone.find(`.${ELEM_NAME}`).html(defaultText);
+};
+
+/**
  * module起動
  * @exports
  */
-init = () => {
+init = (_modModel) => {
+  modModel = _modModel;
   set$cache();
   $cache.self
     .on('keydown', onKeydown)
@@ -97,6 +112,7 @@ init = () => {
     .each((index, elem) => {
       $(elem).on('paste', onPaste);
     });
+  $cache.window.on('create-group-clone', onCreateGroupClone);
 };
 
 export default {
