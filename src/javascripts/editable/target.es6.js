@@ -14,7 +14,7 @@ const
 
 var
   init, set$cache, $cache, onKeydown, onPaste, reset, convertLink,
-  onCreateGroupClone, modModel;
+  onCreateGroupClone, modModel, makeEditable;
 
 /**
  * jqueryオブジェクトを保持
@@ -50,6 +50,28 @@ convertLink = ($html) => {
       return `<a href="${url}">${text}</a>`;
     }
   ));
+};
+
+/**
+ * contenteditable属性をセットする
+ *   子要素にブロック要素を持つ場合はスルー
+ */
+makeEditable = () => {
+  $cache.self.each((index, target) => {
+    var $target, hasBlock;
+    $target = $(target);
+    hasBlock = false;
+    $target.children().each((_index, child) => {
+      if (hasBlock) {
+        return;
+      }
+      hasBlock = $(child).css('display') === 'block';
+    });
+    if (hasBlock) {
+      return;
+    }
+    $target.prop('contenteditable', true);
+  });
 };
 
 /**
@@ -106,9 +128,9 @@ onCreateGroupClone = (event, $clone) => {
 init = (_modModel) => {
   modModel = _modModel;
   set$cache();
+  makeEditable();
   $cache.self
     .on('keydown', onKeydown)
-    .prop('contenteditable', true)
     .each((index, elem) => {
       $(elem).on('paste', onPaste);
     });
