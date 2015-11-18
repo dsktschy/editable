@@ -1,12 +1,25 @@
 export default () => {
-  var id, elem;
-  id = 'editable-script';
-  if (document.getElementById(id)) {
+  var className, jquerySrc, editableSrc, appendScript;
+  className = 'editable-script';
+  jquerySrc = '//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js';
+  editableSrc = '//localhost:3000/javascripts/editable.min.js';
+  appendScript = (src, onload) => {
+    var elem;
+    elem = document.createElement('script');
+    elem.className = className;
+    elem.type = 'text/javascript';
+    elem.src = src;
+    if (onload) {
+      elem.onload = onload;
+    }
+    document.getElementsByTagName('head')[0].appendChild(elem);
+  };
+  if (document.getElementsByClassName(className).length) {
     return;
   }
-  elem = document.createElement('script');
-  elem.id = id;
-  elem.type = 'text/javascript';
-  elem.src = '//localhost:3000/javascripts/editable.min.js';
-  document.getElementsByTagName('head')[0].appendChild(elem);
+  if (typeof jQuery === 'undefined') {
+    appendScript(jquerySrc, appendScript.bind(null, editableSrc));
+    return;
+  }
+  appendScript(editableSrc);
 };

@@ -9,7 +9,7 @@ var reset;
  * @exports
  */
 reset = ($html) => {
-  $html.find(`#${ELEM_NAME}`).remove();
+  $html.find(`.${ELEM_NAME}`).remove();
 };
 
 export default {
