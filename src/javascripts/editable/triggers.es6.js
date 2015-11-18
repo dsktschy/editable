@@ -13,7 +13,7 @@ const
       '<span></span>' +
     '</div>';
 
-var init, set$cache, $cache, onGetData, modModel, setVisible, reset;
+var init, set$cache, $cache, onGetData, modModel, setVisibility, reset;
 
 /**
  * jqueryオブジェクトを保持
@@ -29,8 +29,8 @@ set$cache = () => {
  * 渡された要素内のトリガーの表示/非表示を切り替える
  * @exports
  */
-setVisible = (bool, $group) => {
-  $group.find(`.${ELEM_NAME}`).css('opacity', +bool);
+setVisibility = (bool, $group) => {
+  $group.find(`.${ELEM_NAME}`).css('visibility', bool ? 'visible' : 'hidden');
 };
 
 /**
@@ -70,12 +70,12 @@ init = ($wrapper, _modModel) => {
   modModel = _modModel;
   $wrapper.prepend(HTML);
   set$cache();
-  $cache.self.css('opacity', 0);
+  $cache.self.css('visibility', 'hidden');
   $cache.window.on('get-data', onGetData);
 };
 
 export default {
   init,
-  setVisible,
+  setVisibility,
   reset,
 };

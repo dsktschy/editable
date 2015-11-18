@@ -61,8 +61,8 @@ resetStyleAttrOf = ($elem) => {
 createCloneOf = ($group, direction) => {
   var $clone;
   $clone = $group.clone(true);
-  modTriggers.setVisible(direction !== 'before', $group);
-  modTriggers.setVisible(direction === 'before', $clone);
+  modTriggers.setVisibility(direction !== 'before', $group);
+  modTriggers.setVisibility(direction === 'before', $clone);
   $cache.window.trigger('create-group-clone', [$clone]);
   return $clone;
 };
@@ -87,7 +87,7 @@ insertCloneOf = ($group, direction) => {
  */
 remove = ($group) => {
   var {removedElemMarker} = modModel.getConfigMap()[MOD_NAME];
-  modTriggers.setVisible(true, $group.next(`.${ELEM_NAME}`));
+  modTriggers.setVisibility(true, $group.next(`.${ELEM_NAME}`));
   $group
     .before(removedElemMarker)
     .remove();
@@ -136,14 +136,14 @@ onClickTrigger = (event, trigger) => {
  * カーソルが乗った時のハンドラー
  */
 onMouseenter = ({currentTarget}) => {
-  modTriggers.setVisible(true, $(currentTarget));
+  modTriggers.setVisibility(true, $(currentTarget));
 };
 
 /**
  * カーソルが離れた時のハンドラー
  */
 onMouseleave = ({currentTarget}) => {
-  modTriggers.setVisible(false, $(currentTarget));
+  modTriggers.setVisibility(false, $(currentTarget));
 };
 
 /**
