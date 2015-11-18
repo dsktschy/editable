@@ -50,5 +50,29 @@ export default {
         text: '>',
       },
     ],
+    /** スタイル */
+    styles: [
+      {
+        selector: '',
+        value: {
+          position: 'absolute',
+          top: '6px',
+          right: '20px',
+          font: 'bold 32px "Courier New", Arial, "Hiragino Kaku Gothic Pro", "游ゴシック", "Yu Gothic", sans-serif',
+        },
+      },
+      {
+        selector: 'span',
+        value: {
+          'cursor': 'pointer',
+        },
+      },
+      {
+        selector: 'span:not(:first)',
+        value: {
+          'margin-left': '5px',
+        },
+      },
+    ],
   },
 };

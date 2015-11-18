@@ -43,9 +43,10 @@ reset = ($html) => {
 
 /**
  * データ取得完了時のコールバック
+ *   クリックイベント、テキスト、スタイルを設定する
  */
 onGetData = () => {
-  var {maps} = modModel.getConfigMap()[MOD_NAME];
+  var {maps, styles} = modModel.getConfigMap()[MOD_NAME];
   $cache.self.each((index, triggers) => {
     $(triggers).children().each((_index, trigger) => {
       var {name, text} = maps[_index];
@@ -56,6 +57,9 @@ onGetData = () => {
         .html(text);
     });
   });
+  for (let {selector, value} of styles) {
+    (selector ? $cache.self.find(selector) : $cache.self).css(value);
+  }
 };
 
 /**
