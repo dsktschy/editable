@@ -1,6 +1,8 @@
 import $ from 'jquery';
 
 const
+  /** モジュール名 */
+  MOD_NAME = 'menu',
   /** HTML要素名 */
   ELEM_NAME = 'editable-menu',
   /** ダウンロードリンク文言 */
@@ -11,7 +13,7 @@ const
       `<span>${DOWNLOAD_ELEM_TEXT}</span>` +
     '</div>';
 
-var init, set$cache, $cache, onClick, reset;
+var init, set$cache, $cache, onClick, reset, onGetData, modModel;
 
 /**
  * jqueryオブジェクトを保持
@@ -40,13 +42,26 @@ onClick = () => {
 };
 
 /**
+ * データ取得完了時のコールバック
+ *   スタイルを設定する
+ */
+onGetData = () => {
+  var {styles} = modModel.getConfigMap()[MOD_NAME];
+  for (let {selector, value} of styles) {
+    (selector ? $cache.self.find(selector) : $cache.self).css(value);
+  }
+};
+
+/**
  * module起動
  * @exports
  */
-init = ($wrapper) => {
+init = ($wrapper, _modModel) => {
+  modModel = _modModel;
   $wrapper.prepend(HTML);
   set$cache();
   $cache.download.on('click', onClick);
+  $cache.window.on('get-data', onGetData);
 };
 
 export default {

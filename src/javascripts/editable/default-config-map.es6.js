@@ -15,6 +15,28 @@ export default {
     /** ファイルの末尾の空行文字(存在しない場合は空文字を指定) */
     eol: '\n',
   },
+  /** for menu */
+  menu: {
+    /** スタイル */
+    styles: [
+      {
+        selector: '',
+        value: {
+          position: 'fixed',
+          'z-index': 999,
+          top: '15px',
+          right: '20px',
+          font: 'bold 14px Helvetica, Arial, "Hiragino Kaku Gothic Pro", "游ゴシック", "Yu Gothic", sans-serif',
+        },
+      },
+      {
+        selector: 'span',
+        value: {
+          'cursor': 'pointer',
+        },
+      },
+    ],
+  },
   /** for target */
   target: {
     /** 要素増加時に仮に設定しておく文字列 */

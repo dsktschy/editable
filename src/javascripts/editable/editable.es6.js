@@ -120,7 +120,7 @@ init = () => {
   set$cache();
   modData.init();
   modModel.init(modData);
-  modMenu.init($cache.body);
+  modMenu.init($cache.body, modModel);
   modTarget.init(modModel);
   modGroup.init(modModel);
   $cache.window.on({
