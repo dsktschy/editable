@@ -1,10 +1,15 @@
 div.portal {
+  $light-gray: #f0f0f0;
+  $dark-gray: #787878;
+  background: $light-gray;
+  height: 100%;
 
   header {
     height: 208px;
   }
 
   div.portal-bookmarklet-link {
+    background: $dark-gray;
     height: 360px;
   }
 }
