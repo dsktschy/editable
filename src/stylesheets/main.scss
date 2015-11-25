@@ -1,6 +1,26 @@
+@font-face {
+  font-family: 'Noto Sans CJK JP Bold';
+  src: url('/fonts/NotoSansCJKjp-Bold.woff');
+}
+
+:root {
+  box-sizing: border-box;
+}
+
+*,
+::before,
+::after {
+  box-sizing: inherit;
+}
+
 html,
 body {
+  width: 100%;
   height: 100%;
+}
+
+body {
+  font-family: 'Noto Sans CJK JP Bold';
 }
 
 p,
@@ -11,4 +31,9 @@ h4,
 h5,
 h6 {
   margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }

@@ -3,9 +3,13 @@ import makeEditable from './make-editable';
 
 const
   /** HTML要素名 */
-  ELEM_NAME = 'portal-bookmarklet-link';
+  ELEM_NAME = 'portal-bookmarklet-link',
+  /** IEをリンクのDnDに対応させるためにかぶせる画像 */
+  COVERING_IMG_SRC = '/images/spacer.gif',
+  /** IEをリンクのDnDに対応させるためにかぶせる画像の代替テキスト */
+  COVERING_IMG_ALT = 'Make Editable';
 
-var init, set$cache, $cache, initAnchor;
+var init, set$cache, $cache, initAnchor, onMousedown, onMouseup, onDragend;
 
 /**
  * jqueryオブジェクトを保持
@@ -13,7 +17,6 @@ var init, set$cache, $cache, initAnchor;
 set$cache = () => {
   $cache = {
     self: $(`#${ELEM_NAME}`),
-    anchor: $(`#${ELEM_NAME}`).find('a'),
   };
 };
 
@@ -23,7 +26,49 @@ set$cache = () => {
 initAnchor = () => {
   var encodedMakeEditable;
   encodedMakeEditable = encodeURIComponent(makeEditable.toString());
-  $cache.anchor.attr('href', `javascript:(${encodedMakeEditable})();`);
+  $cache.self.attr('href', `javascript:(${encodedMakeEditable})();`);
+};
+
+/**
+ * マウス押下時のハンドラー(IEのみ)
+ *   IEのみ、リンクをドラッグする際にimg要素の上を通過しないと
+ *   dragstartが発火しないため、必ず通過するよう透明な画像でa要素を覆う
+ */
+onMousedown = () => {
+  $cache.self
+    .css('position', 'relative')
+    .prepend(
+      $('<img>')
+        .attr({
+          src: COVERING_IMG_SRC,
+          alt: COVERING_IMG_ALT,
+        })
+        .css({
+          display: 'block',
+          position: 'fixed',
+          width: '100%',
+          height: $cache.self.height(),
+        })
+    );
+};
+
+/**
+ * マウスを離した時のハンドラー(IEのみ)
+ */
+onMouseup = () => {
+  $cache.self
+    .removeAttr('style')
+    .children('img').remove();
+  makeEditable();
+};
+
+/**
+ * ドラッグ終了時のハンドラー(IEのみ)
+ */
+onDragend = () => {
+  $cache.self
+    .removeAttr('style')
+    .children('img').remove();
 };
 
 /**
@@ -33,6 +78,13 @@ initAnchor = () => {
 init = () => {
   set$cache();
   initAnchor();
+  if (window.navigator.msSaveBlob) {
+    $cache.self.on({
+      mousedown: onMousedown,
+      mouseup: onMouseup,
+      dragend: onDragend,
+    });
+  }
 };
 
 export default {

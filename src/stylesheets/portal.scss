@@ -1,8 +1,13 @@
 div.portal {
   $light-gray: #f0f0f0;
   $dark-gray: #787878;
+  $yellow: #cf0;
+  $font-size-l: 24px;
+  $font-size-m: 18px;
   background: $light-gray;
+  width: 100%;
   height: 100%;
+  min-width: 960px;
 
   header {
     height: 208px;
@@ -22,8 +27,65 @@ div.portal {
     }
   }
 
-  div.portal-bookmarklet-link {
-    background: $dark-gray;
-    height: 360px;
+  a.portal-bookmarklet-link {
+    display: block;
+
+    div.outer-wrapper {
+      $height: 360px;
+      $border-width: 8px;
+      $padding-mouse-out: 12px;
+      $padding-mouse-over: $padding-mouse-out + $border-width;
+      $padding-mouse-out-inner-wrapper: 40px;
+      $padding-mouse-over-inner-wrapper: $padding-mouse-out-inner-wrapper - $border-width;
+      background: $dark-gray;
+      color: $light-gray;
+      height: $height;
+      text-align: center;
+      padding: $padding-mouse-out;
+      transition: all .1s ease-in-out 0s;
+
+      div.inner-wrapper {
+        height: $height - $padding-mouse-out * 2;
+        border: $border-width solid;
+        padding: $padding-mouse-out-inner-wrapper 0;
+        border-radius: 20px;
+        transition: all .1s ease-in-out 0s;
+
+        h1 {
+          font-size: $font-size-l;
+          margin: 0 0 12px;
+          position: relative;
+
+          &:not(:first-child) {
+            margin-top: 36px;
+          }
+
+          &::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 38px;
+            margin: 0 auto;
+            width: 688px;
+            border-bottom: 2px solid;
+          }
+        }
+
+        p {
+          font-size: $font-size-m;
+        }
+      }
+
+      &:hover {
+        color: $yellow;
+        padding: $padding-mouse-over;
+
+        div.inner-wrapper {
+          height: $height - $padding-mouse-over * 2;
+          padding: $padding-mouse-over-inner-wrapper 0;
+        }
+      }
+    }
   }
 }
