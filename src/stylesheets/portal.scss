@@ -51,14 +51,17 @@ div.portal {
         border-radius: 20px;
         transition: all .1s ease-in-out 0s;
 
+        & > *:not(:first-child) {
+
+          h1 {
+            margin-top: 36px;
+          }
+        }
+
         h1 {
           font-size: $font-size-l;
           margin: 0 0 12px;
           position: relative;
-
-          &:not(:first-child) {
-            margin-top: 36px;
-          }
 
           &::after {
             content: '';
