@@ -1,0 +1,7 @@
+{
+  "editable": {
+    "removedAttributes": [
+      ["#portal-bookmarklet-link", "href"]
+    ]
+  }
+}
