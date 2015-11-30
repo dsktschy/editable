@@ -158,4 +158,13 @@ div.portal {
       }
     }
   }
+
+  footer {
+    width: $min-width;
+    color: $dark-gray;
+    margin: 0 auto;
+    padding: 58px 0;
+    font-size: $font-size-s;
+    text-align: center;
+  }
 }
