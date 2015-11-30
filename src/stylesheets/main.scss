@@ -1,6 +1,8 @@
 @font-face {
+  $file-name: 'NotoSansCJKjp-Bold';
   font-family: 'Noto Sans CJK JP Bold';
-  src: url('/fonts/NotoSansCJKjp-Bold.woff');
+  src: url('/fonts/#{$file-name}.eot');
+  src: url('/fonts/#{$file-name}.woff') format('woff'), url('/fonts/#{$file-name}.ttf') format('truetype');
 }
 
 :root {
