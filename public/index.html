@@ -37,7 +37,97 @@
       </section>
       <section>
         <div id="portal-demo" class="portal-demo">
-          <p>Demo</p>
+          <section>
+            <h1><span>あなたのページを編集可能にします</span></h1>
+            <p>
+              editable.jsは、公開された外観のままHTMLを編集し、ダウンロードすることを目的としたツールです。<br>
+              WEBブラウザから利用可能なFTPなどを併用することで、エンジニアでない方にも静的サイトの運用が可能となります。<br>
+              HTML構造を可能な限り元のファイルのまま保つよう設計されており、予め指定しておいた要素のみを編集可能にするため、レイアウトの崩れる心配がありません。
+            </p>
+          </section>
+          <section>
+            <h1><span>HTMLに簡単な設定をしておくだけですぐに使い始められます</span></h1>
+            <p>
+              このページ上部の「あなたのページを編集・ダウンロードしてみる」と表示されたブロックを、WEBブラウザのブックマークバーへドラッグ＆ドロップしてください。（この工程は初回編集時のみ必要です）<br>
+              <br>
+              編集対象とするページのHTMLファイルをテキストエディタで開き、編集可能にしたい要素へ class=”editable-target” を追加してください。
+            </p>
+            <div class="sample">
+              <p class="column">
+                <code>
+                  &lt;p&gt;Editable block&lt;/p&gt;<br>
+                  <br>
+                  &lt;p class=”another-class”&gt;Editable block&lt;/p&gt;
+                </code>
+              </p>
+              <p class="column">→</p>
+              <p class="column">
+                <code>
+                  &lt;p <span>class=”editable-target”</span>&gt;Editable block&lt;/p&gt;<br>
+                  <br>
+                  &lt;p class=”another-class <span>editable-target</span>”&gt;Editable block&lt;/p&gt;
+                </code>
+              </p>
+            </div>
+            <p>
+              複製・消去可能にしたい要素へは class=”editable-group” を追加してください。
+            </p>
+            <div class="sample">
+              <p class="column">
+                <code>
+                  &lt;div&gt;<br>
+                  &nbsp;&nbsp;&lt;p class="editable-target"&gt;Editable block&lt;/p&gt;<br>
+                  &lt;/div&gt;<br>
+                  <br>
+                  &lt;div class="another-class"&gt;<br>
+                  &nbsp;&nbsp;&lt;p class="editable-target"&gt;Editable block&lt;/p&gt;<br>
+                  &lt;/div&gt;
+                </code>
+              </p>
+              <p class="column">→</p>
+              <p class="column">
+                <code>
+                  &lt;div <span>class="editable-group"</span>&gt;<br>
+                  &nbsp;&nbsp;&lt;p class="editable-target"&gt;Editable block&lt;/p&gt;<br>
+                  &lt;/div&gt;<br>
+                  <br>
+                  &lt;div class="another-class <span>editable-group</span>"&gt;<br>
+                  &nbsp;&nbsp;&lt;p class="editable-target"&gt;Editable block&lt;/p&gt;<br>
+                  &lt;/div&gt;
+                </code>
+              </p>
+            </div>
+            <p>
+              設定を保存したHTMLファイルをサーバーへアップロードしてください。<br>
+              編集対象のページをWEBブラウザで開き、登録したブックマークをクリックすると、設定箇所の編集が可能となります。<br>
+              <br>
+              編集完了後、ページ右上の Download をクリックすると、編集済みのHTMLファイルをダウンロードすることができます。<br>
+              ダウンロードしたHTMLファイルをサーバーへアップロードすると、編集した内容を反映、公開することができます。<br>
+              <br>
+              さらに詳しい使い方、設定についてはこちらをご覧ください。
+            </p>
+          </section>
+          <section>
+            <h1><span>あくまで静的HTMLを対象としたツールです</span></h1>
+            <p>
+              editable.jsは、あくまで静的HTMLを対象としたツールです。<br>
+              シングル・ページ・アプリケーションのような、動的に挿入される要素が存在するHTMLには、完全対応しているとは言えません。<br>
+              editable-config.json の設定により、挿入された要素をダウンロード時に削除することも可能ですが、余分な空白が残る場合があります。<br>
+              <br>
+              その他の注意事項についてはこちらをご覧ください。
+            </p>
+          </section>
+          <section>
+            <h1><span>対応WEBブラウザ</span></h1>
+            <p class="align-c">
+              Google Chrome<br>
+              Firefox<br>
+              Internet Explorer 10, 11<br>
+              Microsoft Edge ※<br>
+              <br>
+              ※ Microsoft Edge でご使用になる場合はこちらをお読みください。
+            </p>
+          </section>
         </div>
       </section>
       <footer>
