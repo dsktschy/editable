@@ -9,8 +9,8 @@ import modGroup from './group';
 const
   /** モジュール名 */
   MOD_NAME = 'editable',
-  /** ユーザー設定マップのサイトルート相対パス */
-  CONFIG_JSON_URL = '/editable-config.json',
+  /** ユーザー設定マップの相対パス */
+  CONFIG_JSON_URL = 'editable-config.json',
   /** 非対応ブラウザーに表示するアラートメッセージ */
   ALERT_MESSAGE = '' +
     'This browser is not supported.\n' +
