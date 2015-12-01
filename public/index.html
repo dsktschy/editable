@@ -37,67 +37,63 @@
       </section>
       <section>
         <div class="portal-demo" id="portal-demo">
-          <section class="editable-group">
-            <h1><span class="editable-target">あなたのページを編集可能にします</span></h1>
-            <p class="editable-target">
+          <section data-editable="group">
+            <h1><span data-editable="target">あなたのページを編集可能にします</span></h1>
+            <p data-editable="target">
               editable.jsは、公開された外観のままHTMLを編集し、ダウンロードすることを目的としたツールです。<br>
               WEBブラウザから利用可能なFTPなどを併用することで、エンジニアでない方にも静的サイトの運用が可能となります。<br>
               HTML構造を可能な限り元のファイルのまま保つよう設計されており、予め指定しておいた要素のみを編集可能にするため、レイアウトの崩れる心配がありません。
             </p>
           </section>
-          <section class="editable-group">
-            <h1><span class="editable-target">HTMLに簡単な設定をしておくだけですぐに使い始められます</span></h1>
-            <p class="editable-target">
+          <section data-editable="group">
+            <h1><span data-editable="target">HTMLに簡単な設定をしておくだけですぐに使い始められます</span></h1>
+            <p data-editable="target">
               このページ上部の「あなたのページを編集・ダウンロードしてみる」と表示されたブロックを、WEBブラウザのブックマークバーへドラッグ＆ドロップしてください。（この工程は初回編集時のみ必要です）<br>
               <br>
-              編集対象とするページのHTMLファイルをテキストエディタで開き、編集可能にしたい要素へ class=”editable-target” を追加してください。
+              編集対象とするページのHTMLファイルをテキストエディタで開き、編集可能にしたい要素へ data-editable="target" を追加してください。
             </p>
             <div class="sample">
               <p class="column">
                 <code>
                   &lt;p&gt;Editable block&lt;/p&gt;<br>
                   <br>
-                  &lt;p class=”another-class”&gt;Editable block&lt;/p&gt;
+                  &lt;p another-attribute="value"&gt;<br>
+                  &nbsp;&nbsp;Editable block<br>
+                  &lt;/p&gt;
                 </code>
               </p>
               <p class="column">→</p>
               <p class="column">
                 <code>
-                  &lt;p <span>class=”editable-target”</span>&gt;Editable block&lt;/p&gt;<br>
+                  &lt;p <span>data-editable="target"</span>&gt;Editable block&lt;/p&gt;<br>
                   <br>
-                  &lt;p class=”another-class <span>editable-target</span>”&gt;Editable block&lt;/p&gt;
+                  &lt;p another-attribute="value" <span>data-editable="target"</span>&gt;<br>
+                  &nbsp;&nbsp;Editable block<br>
+                  &lt;/p&gt;
                 </code>
               </p>
             </div>
-            <p class="editable-target">
-              複製・消去可能にしたい要素へは class=”editable-group” を追加してください。
+            <p data-editable="target">
+              複製・消去可能にしたい要素へは data-editable="group" を追加してください。
             </p>
             <div class="sample">
               <p class="column">
                 <code>
                   &lt;div&gt;<br>
-                  &nbsp;&nbsp;&lt;p class="editable-target"&gt;Editable block&lt;/p&gt;<br>
-                  &lt;/div&gt;<br>
-                  <br>
-                  &lt;div class="another-class"&gt;<br>
-                  &nbsp;&nbsp;&lt;p class="editable-target"&gt;Editable block&lt;/p&gt;<br>
+                  &nbsp;&nbsp;&lt;p data-editable="target"&gt;Editable block&lt;/p&gt;<br>
                   &lt;/div&gt;
                 </code>
               </p>
               <p class="column">→</p>
               <p class="column">
                 <code>
-                  &lt;div <span>class="editable-group"</span>&gt;<br>
-                  &nbsp;&nbsp;&lt;p class="editable-target"&gt;Editable block&lt;/p&gt;<br>
-                  &lt;/div&gt;<br>
-                  <br>
-                  &lt;div class="another-class <span>editable-group</span>"&gt;<br>
-                  &nbsp;&nbsp;&lt;p class="editable-target"&gt;Editable block&lt;/p&gt;<br>
+                  &lt;div <span>data-editable="group"</span>&gt;<br>
+                  &nbsp;&nbsp;&lt;p data-editable="target"&gt;Editable block&lt;/p&gt;<br>
                   &lt;/div&gt;
                 </code>
               </p>
             </div>
-            <p class="editable-target">
+            <p data-editable="target">
               設定を保存したHTMLファイルをサーバーへアップロードしてください。<br>
               編集対象のページをWEBブラウザで開き、登録したブックマークをクリックすると、設定箇所の編集が可能となります。<br>
               <br>
@@ -107,9 +103,9 @@
               <!-- さらに詳しい使い方、設定についてはこちらをご覧ください。 -->
             </p>
           </section>
-          <section class="editable-group">
-            <h1><span class="editable-target">あくまで静的HTMLを対象としたツールです</span></h1>
-            <p class="editable-target">
+          <section data-editable="group">
+            <h1><span data-editable="target">あくまで静的HTMLを対象としたツールです</span></h1>
+            <p data-editable="target">
               editable.jsは、あくまで静的HTMLを対象としたツールです。<br>
               シングル・ページ・アプリケーションのような、動的に挿入される要素が存在するHTMLには、完全対応しているとは言えません。<br>
               editable-config.json の設定により、挿入された要素をダウンロード時に削除することも可能ですが、余分な空白が残る場合があります。<!-- <br> -->
@@ -117,9 +113,9 @@
               <!-- その他の注意事項についてはこちらをご覧ください。 -->
             </p>
           </section>
-          <section class="editable-group">
-            <h1><span class="editable-target">対応WEBブラウザ</span></h1>
-            <p class="align-c editable-target">
+          <section data-editable="group">
+            <h1><span data-editable="target">対応WEBブラウザ</span></h1>
+            <p class="align-c" data-editable="target">
               Google Chrome<br>
               Firefox<br>
               Internet Explorer 10, 11<br>
@@ -131,7 +127,7 @@
         </div>
       </section>
       <footer>
-        <p><small class="editable-target">© 2015 DSKTSCHY</small></p>
+        <p><small data-editable="target">© 2015 DSKTSCHY</small></p>
       </footer>
     </div>
   </body>

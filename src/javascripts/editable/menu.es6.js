@@ -9,7 +9,7 @@ const
   DOWNLOAD_ELEM_TEXT = 'Download',
   /** HTML */
   HTML = '' +
-    `<div id="${ELEM_NAME}" class="${ELEM_NAME}">` +
+    `<div id="${ELEM_NAME}">` +
       `<span>${DOWNLOAD_ELEM_TEXT}</span>` +
     '</div>';
 

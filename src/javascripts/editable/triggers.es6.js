@@ -3,11 +3,11 @@ import $ from 'jquery';
 const
   /** モジュール名 */
   MOD_NAME = 'triggers',
-  /** HTML要素名 */
-  ELEM_NAME = 'editable-triggers',
+  /** セレクター */
+  SELF_SELECTOR = `[data-editable=${MOD_NAME}]`,
   /** HTML */
   HTML = '' +
-    `<div class="${ELEM_NAME}">` +
+    `<div data-editable="${MOD_NAME}">` +
       '<span></span>' +
       '<span></span>' +
       '<span></span>' +
@@ -20,7 +20,7 @@ var init, set$cache, $cache, onGetData, modModel, setVisibility, reset;
  */
 set$cache = () => {
   $cache = {
-    self: $(`.${ELEM_NAME}`),
+    self: $(SELF_SELECTOR),
     window: $(window),
   };
 };
@@ -30,7 +30,7 @@ set$cache = () => {
  * @exports
  */
 setVisibility = (bool, $group) => {
-  $group.find(`.${ELEM_NAME}`).css('visibility', bool ? 'visible' : 'hidden');
+  $group.find(SELF_SELECTOR).css('visibility', bool ? 'visible' : 'hidden');
 };
 
 /**
@@ -38,7 +38,7 @@ setVisibility = (bool, $group) => {
  * @exports
  */
 reset = ($html) => {
-  $html.find(`.${ELEM_NAME}`).remove();
+  $html.find(SELF_SELECTOR).remove();
 };
 
 /**

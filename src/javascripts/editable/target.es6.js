@@ -3,8 +3,8 @@ import $ from 'jquery';
 const
   /** モジュール名 */
   MOD_NAME = 'target',
-  /** HTML要素名 */
-  ELEM_NAME = 'editable-target',
+  /** セレクター */
+  SELF_SELECTOR = `[data-editable=${MOD_NAME}]`,
   /** ctrl,commandとの同時押下が有効なキーのコード */
   VALID_SHORTCUT_KEY_CODES = [65, 67, 86, 88, 89, 90],
   /** 入力テキストからスタイルを抜ききれないブラウザーに表示するアラートメッセージ */
@@ -21,7 +21,7 @@ var
  */
 set$cache = () => {
   $cache = {
-    self: $(`.${ELEM_NAME}`),
+    self: $(SELF_SELECTOR),
     window: $(window),
   };
 };
@@ -31,7 +31,7 @@ set$cache = () => {
  * @exports
  */
 reset = ($html) => {
-  $html.find(`.${ELEM_NAME}`).removeAttr('contenteditable');
+  $html.find(SELF_SELECTOR).removeAttr('contenteditable');
 };
 
 /**
@@ -39,7 +39,7 @@ reset = ($html) => {
  * @exports
  */
 convertLink = ($html) => {
-  $html.find(`.${ELEM_NAME}`).html((index, html) => html.replace(
+  $html.find(SELF_SELECTOR).html((index, html) => html.replace(
     /\[.*?\]\(.*?\)/mg,
     (match) => {
       var brackets, parentheses, url, text;
@@ -118,7 +118,7 @@ onPaste = ({originalEvent: {clipboardData}}) => {
  */
 onCreateGroupClone = (event, $clone) => {
   var {defaultText} = modModel.getConfigMap()[MOD_NAME];
-  $clone.find(`.${ELEM_NAME}`).html(defaultText);
+  $clone.find(SELF_SELECTOR).html(defaultText);
 };
 
 /**

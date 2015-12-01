@@ -4,8 +4,8 @@ import modTriggers from './triggers';
 const
   /** モジュール名 */
   MOD_NAME = 'group',
-  /** HTML要素名 */
-  ELEM_NAME = 'editable-group',
+  /** セレクター */
+  SELF_SELECTOR = `[data-editable=${MOD_NAME}]`,
   /** style属性が書き換えられた要素に付与するdata属性の名前 */
   EDITED_STYLE_DATA_NAME = 'is-edited-style';
 
@@ -19,7 +19,7 @@ var
  */
 set$cache = () => {
   $cache = {
-    self: $(`.${ELEM_NAME}`),
+    self: $(SELF_SELECTOR),
     window: $(window),
   };
 };
@@ -87,7 +87,7 @@ insertCloneOf = ($group, direction) => {
  */
 remove = ($group) => {
   var {removedElemMarker} = modModel.getConfigMap()[MOD_NAME];
-  modTriggers.setVisibility(true, $group.next(`.${ELEM_NAME}`));
+  modTriggers.setVisibility(true, $group.next(SELF_SELECTOR));
   $group
     .before(removedElemMarker)
     .remove();
@@ -107,7 +107,7 @@ removeMarker = (html) => {
  * @exports
  */
 reset = ($html) => {
-  $html.find(`.${ELEM_NAME}`).each((index, elem) => {
+  $html.find(SELF_SELECTOR).each((index, elem) => {
     resetStyleAttrOf($(elem));
   });
   modTriggers.reset($html);
@@ -118,7 +118,7 @@ reset = ($html) => {
  */
 onClickTrigger = (event, trigger) => {
   var $group;
-  $group = $(trigger).parents(`.${ELEM_NAME}`);
+  $group = $(trigger).parents(SELF_SELECTOR);
   switch (event.namespace) {
     case 'insert-before':
       insertCloneOf($group, 'before');

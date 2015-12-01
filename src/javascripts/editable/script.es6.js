@@ -1,6 +1,8 @@
 const
-  /** HTML要素名 */
-  ELEM_NAME = 'editable-script';
+  /** モジュール名 */
+  MOD_NAME = 'script',
+  /** セレクター */
+  SELF_SELECTOR = `[data-editable=${MOD_NAME}]`;
 
 var reset;
 
@@ -9,7 +11,7 @@ var reset;
  * @exports
  */
 reset = ($html) => {
-  $html.find(`.${ELEM_NAME}`).remove();
+  $html.find(SELF_SELECTOR).remove();
 };
 
 export default {
