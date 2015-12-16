@@ -9,7 +9,7 @@ import fs from 'fs';
 
 var
   $, publicJSDir, publicCSSDir, publicDir, plumberOpt, handleErrors, bs,
-  getTasks, bsInit, bsReload, bundledDirNames, indexFileName, indexFile, bsSkip,
+  getTasks, bsInit, bsReload, bundledDirs, indexFileName, indexFile, bsSkip,
   existsSync, srcDir, jsDir, cssDir, mapDir, srcJSDir, srcCSSDir;
 $ = loadPlugins();
 bs = browserSync.create();
@@ -23,7 +23,7 @@ publicJSDir = publicDir + jsDir;
 publicCSSDir = publicDir + cssDir;
 srcJSDir = srcDir + jsDir;
 srcCSSDir = srcDir + cssDir;
-bundledDirNames = ['portal', 'editable'];
+bundledDirs = ['portal/', 'editable/'];
 indexFile = publicDir + indexFileName;
 plumberOpt = {errorHandler: $.notify.onError('Error: <%= error.message %>')};
 bsSkip = false;
@@ -119,25 +119,30 @@ gulp.task('babel', ['eslint'], () => {
  * エントリーファイルが存在しなければ何もしない
  */
 gulp.task('browserify', ['babel'], (done) => {
-  var entryFile, onEnd, endCount;
+  var entryFile, onEnd, endCount, bundledFileName;
+  if (!bundledDirs.length) {
+    done();
+    return;
+  }
   endCount = 0;
   onEnd = () => {
     endCount++;
-    if (endCount === bundledDirNames.length) {
+    if (endCount === bundledDirs.length) {
       done();
     }
   };
-  for (let name of bundledDirNames) {
-    entryFile = `${srcJSDir}/${name}/main.js`;
+  for (let bundledDir of bundledDirs) {
+    entryFile = `${srcJSDir}${bundledDir}main.js`;
     if (!existsSync(entryFile)) {
       onEnd();
       continue;
     }
+    bundledFileName = `${bundledDir ? bundledDir.slice(0, -1) : 'bundle'}.js`;
     browserify(entryFile, {debug: true})
       .bundle()
       .on('error', handleErrors)
       .pipe($.plumber(plumberOpt))
-      .pipe(source(`${name}.js`))
+      .pipe(source(bundledFileName))
       .pipe(buffer())
       .pipe($.if(
         process.env.NODE_ENV !== 'production',
