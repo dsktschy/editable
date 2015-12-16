@@ -9,7 +9,7 @@ import fs from 'fs';
 
 var
   $, publicJSDir, publicCSSDir, publicDir, plumberOpt, handleErrors, bs,
-  getTasks, bsInit, bsReload, bsFileNames, indexFileName, indexFile, bsSkip,
+  getTasks, bsInit, bsReload, bundledDirNames, indexFileName, indexFile, bsSkip,
   existsSync, srcDir, jsDir, cssDir, mapDir, srcJSDir, srcCSSDir;
 $ = loadPlugins();
 bs = browserSync.create();
@@ -23,7 +23,7 @@ publicJSDir = publicDir + jsDir;
 publicCSSDir = publicDir + cssDir;
 srcJSDir = srcDir + jsDir;
 srcCSSDir = srcDir + cssDir;
-bsFileNames = ['portal', 'editable'];
+bundledDirNames = ['portal', 'editable'];
 indexFile = publicDir + indexFileName;
 plumberOpt = {errorHandler: $.notify.onError('Error: <%= error.message %>')};
 bsSkip = false;
@@ -123,11 +123,11 @@ gulp.task('browserify', ['babel'], (done) => {
   endCount = 0;
   onEnd = () => {
     endCount++;
-    if (endCount === bsFileNames.length) {
+    if (endCount === bundledDirNames.length) {
       done();
     }
   };
-  for (let name of bsFileNames) {
+  for (let name of bundledDirNames) {
     entryFile = `${srcJSDir}/${name}/main.js`;
     if (!existsSync(entryFile)) {
       onEnd();
