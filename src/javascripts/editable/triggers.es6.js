@@ -46,10 +46,10 @@ reset = ($html) => {
  *   クリックイベント、テキスト、スタイルを設定する
  */
 onGetData = () => {
-  var {maps, styles} = modModel.getConfigMap()[MOD_NAME];
+  var {eventMaps, styleMap} = modModel.getConfigMap()[MOD_NAME];
   $cache.self.each((index, triggers) => {
     $(triggers).children().each((_index, trigger) => {
-      var {name, text} = maps[_index];
+      var {name, text} = eventMaps[_index];
       $(trigger)
         .on('click', (event) => {
           $cache.window.trigger(`click-trigger.${name}`, [event.currentTarget]);
@@ -57,8 +57,11 @@ onGetData = () => {
         .html(text);
     });
   });
-  for (let {selector, value} of styles) {
-    (selector ? $cache.self.find(selector) : $cache.self).css(value);
+  for (let key in styleMap) {
+    if (!styleMap.hasOwnProperty(key)) {
+      continue;
+    }
+    (key ? $cache.self.find(key) : $cache.self).css(styleMap[key]);
   }
 };
 

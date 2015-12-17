@@ -9,33 +9,27 @@ export default {
     removedElements: [],
     /**
      * ダウンロード時に削除されるべき属性とそれを持つ要素のセレクター
-     *   [selector, attributeName]の形式で指定
+     *   {selector: attributeName}の形式で指定
      */
-    removedAttributes: [],
+    removedAttributeMap: {},
     /** ファイルの末尾の空行文字(存在しない場合は空文字を指定) */
     eol: '\n',
   },
   /** for menu */
   menu: {
     /** スタイル */
-    styles: [
-      {
-        selector: '',
-        value: {
-          position: 'fixed',
-          'z-index': 999,
-          top: '15px',
-          right: '20px',
-          font: 'bold 14px Helvetica, Arial, "Hiragino Kaku Gothic Pro", "游ゴシック", "Yu Gothic", sans-serif',
-        },
+    styleMap: {
+      '': {
+        position: 'fixed',
+        'z-index': 999,
+        top: '15px',
+        right: '20px',
+        font: 'bold 14px Helvetica, Arial, "Hiragino Kaku Gothic Pro", "游ゴシック", "Yu Gothic", sans-serif',
       },
-      {
-        selector: 'span',
-        value: {
-          'cursor': 'pointer',
-        },
+      span: {
+        'cursor': 'pointer',
       },
-    ],
+    },
   },
   /** for target */
   target: {
@@ -51,50 +45,35 @@ export default {
   },
   /** for triggers */
   triggers: {
-    /** トリガー要素の並び順とテキスト */
-    maps: [
+    /** トリガー要素の並び順とそれぞれのクリックイベントの名前空間 */
+    eventMaps: [
       {
-        /** 発生させるクリックイベントの名前空間 */
         name: 'insert-before',
-        /** トリガー要素の文字列 */
         text: '<',
       },
       {
-        /** 発生させるクリックイベントの名前空間 */
         name: 'remove',
-        /** トリガー要素の文字列 */
         text: '-',
       },
       {
-        /** 発生させるクリックイベントの名前空間 */
         name: 'insert-after',
-        /** トリガー要素の文字列 */
         text: '>',
       },
     ],
     /** スタイル */
-    styles: [
-      {
-        selector: '',
-        value: {
-          position: 'absolute',
-          top: '6px',
-          right: '20px',
-          font: 'bold 32px "Courier New", Arial, "Hiragino Kaku Gothic Pro", "游ゴシック", "Yu Gothic", sans-serif',
-        },
+    styleMap: {
+      '': {
+        position: 'absolute',
+        top: '6px',
+        right: '20px',
+        font: 'bold 32px "Courier New", Arial, "Hiragino Kaku Gothic Pro", "游ゴシック", "Yu Gothic", sans-serif',
       },
-      {
-        selector: 'span',
-        value: {
-          'cursor': 'pointer',
-        },
+      span: {
+        'cursor': 'pointer',
       },
-      {
-        selector: 'span:not(:first)',
-        value: {
-          'margin-left': '5px',
-        },
+      'span:not(:first)': {
+        'margin-left': '5px',
       },
-    ],
+    },
   },
 };

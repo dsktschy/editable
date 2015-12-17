@@ -46,9 +46,12 @@ onClick = () => {
  *   スタイルを設定する
  */
 onGetData = () => {
-  var {styles} = modModel.getConfigMap()[MOD_NAME];
-  for (let {selector, value} of styles) {
-    (selector ? $cache.self.find(selector) : $cache.self).css(value);
+  var {styleMap} = modModel.getConfigMap()[MOD_NAME];
+  for (let key in styleMap) {
+    if (!styleMap.hasOwnProperty(key)) {
+      continue;
+    }
+    (key ? $cache.self.find(key) : $cache.self).css(styleMap[key]);
   }
 };
 
