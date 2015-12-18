@@ -11,7 +11,7 @@ const
   MOD_NAME = 'editable',
   /** ユーザー設定マップの相対パス */
   CONFIG_JSON_URL = 'editable-config.json',
-  /** 非対応ブラウザーに表示するアラートメッセージ */
+  /** 非対応ブラウザに表示するアラートメッセージ */
   ALERT_MESSAGE = '' +
     'This browser is not supported.\n' +
     'Please edit in GoogleChrome.',
@@ -33,7 +33,7 @@ set$cache = () => {
 };
 
 /**
- * 有効なブラウザーかどうか
+ * 有効なブラウザかどうか
  *   IE9以下とSafari(downloadできない)は非対応とする
  *   FileReaderがIE9以下には存在せずSafariのみobject扱いであることを利用する
  */
@@ -90,7 +90,7 @@ onGetData = () => {
 };
 
 /**
- * ダウンロードリンククリック時のハンドラー
+ * ダウンロードリンククリック時のハンドラ
  *   テキストをファイル化し、名前を付けてダウンロードする
  *   IEとそれ以外で処理を分ける
  */

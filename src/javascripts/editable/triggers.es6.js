@@ -3,7 +3,7 @@ import $ from 'jquery';
 const
   /** モジュール名 */
   MOD_NAME = 'triggers',
-  /** セレクター */
+  /** セレクタ */
   SELF_SELECTOR = `[data-editable=${MOD_NAME}]`,
   /** HTML */
   HTML = '' +
@@ -28,6 +28,8 @@ set$cache = () => {
 /**
  * 渡された要素内のトリガーの表示/非表示を切り替える
  * @exports
+ * @param {boolean} bool
+ * @param {Object} $group
  */
 setVisibility = (bool, $group) => {
   $group.find(SELF_SELECTOR).css('visibility', bool ? 'visible' : 'hidden');
@@ -36,6 +38,7 @@ setVisibility = (bool, $group) => {
 /**
  * 渡されたhtmlからeditableによる変更を取り消す
  * @exports
+ * @param {Object} $html
  */
 reset = ($html) => {
   $html.find(SELF_SELECTOR).remove();
@@ -68,6 +71,8 @@ onGetData = () => {
 /**
  * module起動
  * @exports
+ * @param {Object} $wrapper
+ * @param {Object} _modModel
  */
 init = ($wrapper, _modModel) => {
   modModel = _modModel;

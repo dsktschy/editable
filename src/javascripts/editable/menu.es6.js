@@ -29,13 +29,14 @@ set$cache = () => {
 /**
  * 渡されたhtmlからeditableによる変更を取り消す
  * @exports
+ * @param {Object} $html
  */
 reset = ($html) => {
   $html.find(`#${ELEM_NAME}`).remove();
 };
 
 /**
- * ダウンロードリンククリック時のハンドラー
+ * ダウンロードリンククリック時のハンドラ
  */
 onClick = () => {
   $cache.window.trigger('click-download');
@@ -58,6 +59,8 @@ onGetData = () => {
 /**
  * module起動
  * @exports
+ * @param {Object} $wrapper
+ * @param {Object} _modModel
  */
 init = ($wrapper, _modModel) => {
   modModel = _modModel;

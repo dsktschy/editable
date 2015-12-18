@@ -23,6 +23,7 @@ setConfigMap = () => {
 
 /**
  * データ取得成功時のコールバック
+ * @param {Object} data
  */
 onSuccessToGetParsedData = (data) => {
   var userConfigMap;
@@ -33,6 +34,7 @@ onSuccessToGetParsedData = (data) => {
 
 /**
  * データ取得失敗時のコールバック
+ * @param {Object} e
  */
 onErrorToGetParsedData = (e) => {
   console.log(e);
@@ -42,6 +44,7 @@ onErrorToGetParsedData = (e) => {
 /**
  * データ取得開始
  * @exports
+ * @param {string} url
  */
 getData = (url) => {
   modData.getParsedData(url, onSuccessToGetParsedData, onErrorToGetParsedData);
@@ -57,6 +60,7 @@ getConfigMap = () => $.extend(true, {}, configMap) || {};
 /**
  * module起動
  * @exports
+ * @param {Object} _modData
  */
 init = (_modData) => {
   set$cache();

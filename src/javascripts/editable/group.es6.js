@@ -4,7 +4,7 @@ import modTriggers from './triggers';
 const
   /** モジュール名 */
   MOD_NAME = 'group',
-  /** セレクター */
+  /** セレクタ */
   SELF_SELECTOR = `[data-editable=${MOD_NAME}]`,
   /** style属性が書き換えられた要素に付与するdata属性の名前 */
   EDITED_STYLE_DATA_NAME = 'is-edited-style';
@@ -26,6 +26,7 @@ set$cache = () => {
 
 /**
  * positionをstatic以外に設定する
+ * @param {Object} $elem
  */
 cancelStaticPosOf = ($elem) => {
   if ($elem.css('position') !== 'static') {
@@ -38,6 +39,7 @@ cancelStaticPosOf = ($elem) => {
 
 /**
  * editableによるstyle属性の変更を取り消す
+ * @param {Object} $elem
  */
 resetStyleAttrOf = ($elem) => {
   var regExp, resetValue;
@@ -57,6 +59,8 @@ resetStyleAttrOf = ($elem) => {
  * 渡されたグループのクローンを生成し初期化する
  *   生成挿入されてからカーソルが動かされるまでの間の
  *   トリガー要素の透明度も合わせて設定する
+ * @param {Object} $group
+ * @param {string} direction
  */
 createCloneOf = ($group, direction) => {
   var $clone;
@@ -70,6 +74,8 @@ createCloneOf = ($group, direction) => {
 /**
  * 渡されたグループのクローンを指定された方向に挿入する
  *   改行とインデントも合わせて挿入する
+ * @param {Object} $group
+ * @param {string} direction
  */
 insertCloneOf = ($group, direction) => {
   var $clone, whiteSpace,
@@ -84,6 +90,7 @@ insertCloneOf = ($group, direction) => {
 
 /**
  * 渡されたグループを削除しグループ削除箇所を示すマーカーを挿入する
+ * @param {Object} $group
  */
 remove = ($group) => {
   var {removedElemMarker} = modModel.getConfigMap()[MOD_NAME];
@@ -96,6 +103,7 @@ remove = ($group) => {
 /**
  * 渡された文字列からグループ削除箇所のマーカーを削除する
  * @exports
+ * @param {string} html
  */
 removeMarker = (html) => {
   var {removedElemMarker} = modModel.getConfigMap()[MOD_NAME];
@@ -105,6 +113,7 @@ removeMarker = (html) => {
 /**
  * 渡されたhtmlからeditableによる変更を取り消す
  * @exports
+ * @param {Object} $html
  */
 reset = ($html) => {
   $html.find(SELF_SELECTOR).each((index, elem) => {
@@ -114,7 +123,9 @@ reset = ($html) => {
 };
 
 /**
- * トリガー要素がクリックされた時のハンドラー
+ * トリガー要素がクリックされた時のハンドラ
+ * @param {Object} event
+ * @param {Object} trigger
  */
 onClickTrigger = (event, trigger) => {
   var $group;
@@ -133,14 +144,16 @@ onClickTrigger = (event, trigger) => {
 };
 
 /**
- * カーソルが乗った時のハンドラー
+ * カーソルが乗った時のハンドラ
+ * @param {Object}
  */
 onMouseenter = ({currentTarget}) => {
   modTriggers.setVisibility(true, $(currentTarget));
 };
 
 /**
- * カーソルが離れた時のハンドラー
+ * カーソルが離れた時のハンドラ
+ * @param {Object}
  */
 onMouseleave = ({currentTarget}) => {
   modTriggers.setVisibility(false, $(currentTarget));
@@ -149,6 +162,7 @@ onMouseleave = ({currentTarget}) => {
 /**
  * module起動
  * @exports
+ * @param {Object} _modModel
  */
 init = (_modModel) => {
   modModel = _modModel;

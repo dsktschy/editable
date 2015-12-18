@@ -5,10 +5,10 @@ export default {
     doctype: '<!DOCTYPE html>\n',
     /** インデント文字列 */
     indent: '  ',
-    /** ダウンロード時に削除されるべき要素を指すセレクター */
+    /** ダウンロード時に削除されるべき要素を指すセレクタ */
     removedElements: [],
     /**
-     * ダウンロード時に削除されるべき属性とそれを持つ要素のセレクター
+     * ダウンロード時に削除されるべき属性とそれを持つ要素のセレクタ
      *   {selector: attributeName}の形式で指定
      */
     removedAttributeMap: {},

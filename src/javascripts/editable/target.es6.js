@@ -3,11 +3,11 @@ import $ from 'jquery';
 const
   /** モジュール名 */
   MOD_NAME = 'target',
-  /** セレクター */
+  /** セレクタ */
   SELF_SELECTOR = `[data-editable=${MOD_NAME}]`,
   /** ctrl,commandとの同時押下が有効なキーのコード */
   VALID_SHORTCUT_KEY_CODES = [65, 67, 86, 88, 89, 90],
-  /** 入力テキストからスタイルを抜ききれないブラウザーに表示するアラートメッセージ */
+  /** 入力テキストからスタイルを抜ききれないブラウザに表示するアラートメッセージ */
   ALERT_MESSAGE = '' +
     'In this browser, paste is not supported.\n' +
     'Please edit in GoogleChrome.';
@@ -29,6 +29,7 @@ set$cache = () => {
 /**
  * 渡されたhtmlからeditableによる変更を取り消す
  * @exports
+ * @param {Object} $html
  */
 reset = ($html) => {
   $html.find(SELF_SELECTOR).removeAttr('contenteditable');
@@ -37,6 +38,7 @@ reset = ($html) => {
 /**
  * 渡されたhtml中のmarkdown記法のリンクをHTMLのa要素へ変換する
  * @exports
+ * @param {Object} $html
  */
 convertLink = ($html) => {
   $html.find(SELF_SELECTOR).html((index, html) => html.replace(
@@ -75,9 +77,10 @@ makeEditable = () => {
 };
 
 /**
- * キーボード操作時のハンドラー
+ * キーボード操作時のハンドラ
  *   コピー・カット・ペースト・全選択・redo・undo以外のショートカットと
  *   Enterのみ(Shiftなし)での改行を無効化する
+ * @param {Object}
  */
 onKeydown = ({ctrlKey, metaKey, which, shiftKey}) => {
   var
@@ -95,9 +98,10 @@ onKeydown = ({ctrlKey, metaKey, which, shiftKey}) => {
 };
 
 /**
- * ペースト時のハンドラー
+ * ペースト時のハンドラ
  *   リッチテキストからプレーンテキストに、改行を半角スペースに変換する
  *   IEはスタイルを抜ききれないため非対応とする
+ * @param {Object}
  */
 onPaste = ({originalEvent: {clipboardData}}) => {
   if (!clipboardData) {
@@ -113,8 +117,10 @@ onPaste = ({originalEvent: {clipboardData}}) => {
 };
 
 /**
- * グループのクローンが生成された時のハンドラー
+ * グループのクローンが生成された時のハンドラ
  *   仮文字列を設定する
+ * @param {Object} event
+ * @param {Object} $clone
  */
 onCreateGroupClone = (event, $clone) => {
   var {defaultText} = modModel.getConfigMap()[MOD_NAME];
@@ -124,6 +130,7 @@ onCreateGroupClone = (event, $clone) => {
 /**
  * module起動
  * @exports
+ * @param {Object} _modModel
  */
 init = (_modModel) => {
   modModel = _modModel;
