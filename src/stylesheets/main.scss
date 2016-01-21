@@ -5,37 +5,37 @@
   src: url('../fonts/#{$file-name}.woff') format('woff'), url('../fonts/#{$file-name}.ttf') format('truetype');
 }
 
-:root {
+html {
   box-sizing: border-box;
-}
-
-*,
-::before,
-::after {
-  box-sizing: inherit;
-}
-
-html,
-body {
   width: 100%;
   height: 100%;
-}
 
-body {
-  font-family: 'Noto Sans CJK JP Bold';
-}
+  *,
+  ::before,
+  ::after {
+    box-sizing: inherit;
+  }
 
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 0;
-}
+  body {
+    width: 100%;
+    height: 100%;
+    font-family: 'Noto Sans CJK JP Bold';
+  }
 
-a {
-  text-decoration: none;
-  color: inherit;
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  @import './portal';
 }
