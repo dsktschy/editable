@@ -38,19 +38,42 @@
       <section>
         <div class="portal-demo" id="portal-demo">
           <section data-editable="group">
-            <h1><span data-editable="target">あなたのページを編集可能にします</span></h1>
+            <h1><span data-editable="target">editable.jsは、あなたのページを編集可能にします</span></h1>
             <p data-editable="target">
-              editable.jsは、公開された外観のままHTMLを編集し、ダウンロードすることを目的としたツールです。<br>
-              WEBブラウザから利用可能なFTPなどを併用することで、エンジニアでない方にも静的サイトの運用が可能となります。<br>
-              HTML構造を可能な限り元のファイルのまま保つよう設計されており、予め指定しておいた要素のみを編集可能にするため、レイアウトの崩れる心配がありません。
+              editable.jsは、HTMLを公開された外観のまま編集し、ダウンロードするためのツールです。<br>
+              <br>
+              <a href="#hosting-service-info">ドラッグ＆ドロップによってアップロードが可能なホスティングサービス</a>との併用で、どなたにでも、静的サイトの運用が可能となります。<br>
+              もちろん、FTPとの併用や、レイアウト確認にもお使いいただけます。<br>
+              <br>
+              また、予め指定しておいた要素のみを編集可能とするため、デザインが崩れる心配もありません。
             </p>
           </section>
           <section data-editable="group">
-            <h1><span data-editable="target">HTMLに簡単な設定をしておくだけですぐに使い始められます</span></h1>
+            <h1><span data-editable="target">試しにこのページを編集・ダウンロードしてみましょう</span></h1>
             <p data-editable="target">
-              このページ上部の「あなたのページを編集・ダウンロードしてみる」と表示されたブロックを、WEBブラウザのブックマークバーへドラッグ＆ドロップしてください。（この工程は初回編集時のみ必要です）<br>
+              まず、このページ上部の「このページを編集・ダウンロードしてみる」と表示されている部分をクリックしてください。<br>
+              そして、この文章の上にカーソルを乗せてクリックしてみてください。<br>
+              文章を自由に編集できるはずです。改行は、初期設定では Shift + Enter で行います。<br>
               <br>
-              編集対象とするページのHTMLファイルをテキストエディタで開き、編集可能にしたい要素へ data-editable="target" を追加してください。
+              次に、この文章の上にカーソルを乗せ、右上に現れる &gt; をクリックしてみてください。<br>
+              文章の下に、Edit here! という新たな見出しと文章が挿入されたかと思います。<br>
+              これらも同様に、編集が可能です。<br>
+              <br>
+              編集を加えた後、このページ右上に表示されている Download をクリックしてみてください。<br>
+              ダウンロードされたファイルは、ここまでの編集が反映された、このページのHTMLファイルです。<br>
+              <br>
+              最後に、このページを再読み込みしてみてください。<br>
+              ページが編集前の状態に戻ります。<br>
+              <br>
+              この様に、editable.jsを用いると、HTMLを公開された外観のまま編集・ダウンロードすることができます。
+            </p>
+          </section>
+          <section data-editable="group">
+            <h1><span data-editable="target">簡単な設定だけで、すぐに使い始められます</span></h1>
+            <p data-editable="target">
+              最初に一度、以下の設定を行っておくだけで、このページと同様に編集・ダウンロードが可能となります。<br>
+              <br>
+              まず、編集対象とするページのHTMLファイルをテキストエディタで開き、編集可能にする要素へ data-editable="target" を追加してください。
             </p>
             <div class="sample">
               <p class="column">
@@ -74,7 +97,7 @@
               </p>
             </div>
             <p data-editable="target">
-              複製・消去可能にしたい要素へは data-editable="group" を追加してください。
+              複製・消去可能にする要素へは data-editable="group" を追加してください。
             </p>
             <div class="sample">
               <p class="column">
@@ -94,35 +117,26 @@
               </p>
             </div>
             <p data-editable="target">
-              設定を保存したHTMLファイルをサーバーへアップロードしてください。<br>
-              編集対象のページをWEBブラウザで開き、登録したブックマークをクリックすると、設定箇所の編集が可能となります。<br>
+              次に、変更を保存したHTMLファイルを、サーバーへアップロードしてください。<br>
               <br>
-              編集完了後、ページ右上の Download をクリックすると、編集済みのHTMLファイルをダウンロードすることができます。<br>
-              ダウンロードしたHTMLファイルをサーバーへアップロードすると、編集した内容を反映、公開することができます。<!-- <br> -->
-              <!-- <br> -->
-              <!-- さらに詳しい使い方、設定についてはこちらをご覧ください。 -->
+              最後に、このページ上部の「あなたのページを編集・ダウンロードしてみる」と表示されている部分を、ブラウザのブックマークバーへドラッグ＆ドロップしてください。<br>
+              <br>
+              ここまでで準備は完了です。<br>
+              以降は、編集対象のページをブラウザで開き、ドラッグ＆ドロップしておいたブックマークをクリックするだけで、編集・ダウンロードが可能です。
             </p>
           </section>
-          <section data-editable="group">
-            <h1><span data-editable="target">あくまで静的HTMLを対象としたツールです</span></h1>
+          <section data-editable="group" id="hosting-service-info">
+            <h1><span data-editable="target">アップロードもブラウザで</span></h1>
             <p data-editable="target">
-              editable.jsは、あくまで静的HTMLを対象としたツールです。<br>
-              シングル・ページ・アプリケーションのような、動的に挿入される要素が存在するHTMLには、完全対応しているとは言えません。<br>
-              editable-config.json の設定により、挿入された要素をダウンロード時に削除することも可能ですが、余分な空白が残る場合があります。<!-- <br> -->
-              <!-- <br> -->
-              <!-- その他の注意事項についてはこちらをご覧ください。 -->
-            </p>
-          </section>
-          <section data-editable="group">
-            <h1><span data-editable="target">対応WEBブラウザ</span></h1>
-            <p class="align-c" data-editable="target">
-              Google Chrome<br>
-              Firefox<br>
-              Opera<br>
-              Microsoft Edge<!--  ※ --><br>
-              Internet Explorer 10, 11<!-- <br> -->
-              <!-- <br> -->
-              <!-- ※ Microsoft Edge でご使用になる場合はこちらをお読みください。 -->
+              編集した内容は、ダウンロードしたHTMLファイルをアップロードすることで、はじめて反映されます。<br>
+              <br>
+              下記のホスティングサービスでは、ブラウザへのドラッグ＆ドロップで、ファイルのアップロードが可能です。<br>
+              これらとeditable.jsを併用することで、編集から反映までの全工程を、ブラウザひとつで完結させることができます。<br>
+              <br>
+              <a href="https://www.netlify.com/">Netlify</a>（無料）<br>
+              <a href="https://www.bitballoon.com/">BitBalloon</a>（無料）<br>
+              <br>
+              もちろん、これらを併用しなくても、editable.jsは単体で使用可能です。
             </p>
           </section>
         </div>
