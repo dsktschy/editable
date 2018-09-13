@@ -1,0 +1,24 @@
+{
+  "name": "editable",
+  "version": "2.0.0",
+  "description": "Editable is a tool to edit HTML without an editor",
+  "main": "src/index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dsktschy/editable.git"
+  },
+  "keywords": [
+    "contenteditable"
+  ],
+  "author": "dsktschy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dsktschy/editable/issues"
+  },
+  "homepage": "https://github.com/dsktschy/editable#readme"
+}
