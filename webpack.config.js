@@ -3,6 +3,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = (env, { mode }) => {
+  const dev = mode === 'development'
   return {
     entry: {
       bundle: path.join(__dirname, 'src/main.js')
@@ -16,6 +17,14 @@ module.exports = (env, { mode }) => {
             'babel-loader',
             'eslint-loader'
           ]
+        },
+        {
+          test: /\.css$/,
+          use: [
+            { loader: 'style-loader', options: { sourceMap: dev } },
+            { loader: 'css-loader', options: { sourceMap: dev } },
+            { loader: 'postcss-loader', options: { sourceMap: dev } }
+          ]
         }
       ]
     },
@@ -24,6 +33,6 @@ module.exports = (env, { mode }) => {
       new HtmlWebpackPlugin({ template: path.join(__dirname, 'src/index.html') })
     ],
     mode: mode || 'production',
-    devtool: mode === 'development' ? 'eval-source-map' : false
+    devtool: dev ? 'eval-source-map' : false
   }
 }
