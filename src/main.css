@@ -1,0 +1,17 @@
+[data-editable="trigger-download"] {
+  position: fixed;
+  top: 15px;
+  right: 20px;
+  z-index: 999;
+  line-height: 1;
+  &::before {
+    content: 'Download';
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    font-family:
+      -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial,
+      "Hiragino Kaku Gothic ProN", "游ゴシック", "Yu Gothic",
+      sans-serif;
+  }
+}
