@@ -31,3 +31,7 @@ if (FileReader == null) throw new Error(messageNotSupported)
 // Trigger to download
 elTriggerDownload.addEventListener('click', downloadHtml)
 document.body.insertBefore(elTriggerDownload, document.body.firstChild)
+// Make targets editable
+for (let elTarget of document.querySelectorAll('[data-editable="target"]')) {
+  elTarget.setAttribute('contenteditable', '')
+}
