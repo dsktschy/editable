@@ -15,3 +15,32 @@
       sans-serif;
   }
 }
+[data-editable="triggers-unit"] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  opacity: 0;
+  transition: opacity .3s;
+  @nest html[data-editable] [data-editable="unit"]:hover > & {
+    opacity: 1;
+  }
+}
+[data-editable="trigger-insert-before"] {
+  &::before {
+    content: '<';
+    cursor: pointer;
+  }
+}
+[data-editable="trigger-remove-self"] {
+  &::before {
+    content: '-';
+    cursor: pointer;
+  }
+}
+[data-editable="trigger-insert-after"] {
+  &::before {
+    content: '>';
+    cursor: pointer;
+  }
+}
