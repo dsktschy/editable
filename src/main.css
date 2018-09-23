@@ -15,32 +15,45 @@
       sans-serif;
   }
 }
-[data-editable="triggers-unit"] {
+[data-editable="trigger-insert-unit-clone-before"] {
   position: absolute;
   top: 0;
-  right: 0;
-  display: flex;
+  right: 20px;
   opacity: 0;
   transition: opacity .3s;
   @nest html[data-editable] [data-editable="unit"]:hover > & {
     opacity: 1;
   }
-}
-[data-editable="trigger-insert-before"] {
   &::before {
     content: '<';
     cursor: pointer;
   }
 }
-[data-editable="trigger-remove-self"] {
+[data-editable="trigger-insert-unit-clone-after"] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  opacity: 0;
+  transition: opacity .3s;
+  @nest html[data-editable] [data-editable="unit"]:hover > & {
+    opacity: 1;
+  }
   &::before {
-    content: '-';
+    content: '>';
     cursor: pointer;
   }
 }
-[data-editable="trigger-insert-after"] {
+[data-editable="trigger-remove-unit"] {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  opacity: 0;
+  transition: opacity .3s;
+  @nest html[data-editable] [data-editable="unit"]:hover > & {
+    opacity: 1;
+  }
   &::before {
-    content: '>';
+    content: 'x';
     cursor: pointer;
   }
 }
