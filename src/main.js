@@ -16,10 +16,20 @@ class App {
   downloadHtml () {
     const el = document.createElement('a')
     const fileName = location.pathname.split('/').pop() || App.fileNameDefault
-    const blob = new Blob([ this.appHtml.el.outerHTML ])
+    this.deactivate()
+    const html = this.appHtml.el.outerHTML
+    this.activate()
+    const doctype = new XMLSerializer().serializeToString(document.doctype)
+    const blob = new Blob([ doctype + html ])
     el.setAttribute('download', fileName)
     el.setAttribute('href', URL.createObjectURL(blob))
     el.dispatchEvent(new MouseEvent('click'))
+  }
+  activate () {
+    this.appHtml.activate()
+  }
+  deactivate () {
+    this.appHtml.deactivate()
   }
 }
 class AppHtml {
@@ -33,6 +43,14 @@ class AppHtml {
   }
   removeActivatedMark () {
     this.el.removeAttribute('data-editable')
+  }
+  activate () {
+    this.setActivatedMark()
+    this.appBody.activate()
+  }
+  deactivate () {
+    this.removeActivatedMark()
+    this.appBody.deactivate()
   }
 }
 class AppBody {
@@ -66,6 +84,16 @@ class AppBody {
   removeTrigger () {
     this.el.removeChild(this.appTriggerDownload.el)
   }
+  activate () {
+    this.appendTrigger()
+    for (let appTarget of this.appTargets) appTarget.activate()
+    for (let appUnitParent of this.appUnitParents) appUnitParent.activate()
+  }
+  deactivate () {
+    this.removeTrigger()
+    for (let appTarget of this.appTargets) appTarget.deactivate()
+    for (let appUnitParent of this.appUnitParents) appUnitParent.deactivate()
+  }
 }
 class AppTriggerDownload {
   static get template () {
@@ -89,6 +117,12 @@ class AppTarget {
   }
   disableToEdit () {
     this.el.removeAttribute('contenteditable')
+  }
+  activate () {
+    this.enableToEdit()
+  }
+  deactivate () {
+    this.disableToEdit()
   }
 }
 class AppUnitParent {
@@ -118,6 +152,12 @@ class AppUnitParent {
     this.el.removeChild(appUnit.el)
     this.appUnits.splice(this.appUnits.indexOf(appUnit), 1)
     appUnit = null
+  }
+  activate () {
+    for (let appUnit of this.appUnits) appUnit.activate()
+  }
+  deactivate () {
+    for (let appUnit of this.appUnits) appUnit.deactivate()
   }
 }
 class AppUnit {
@@ -174,6 +214,14 @@ class AppUnit {
     const el = this.el.cloneNode(true)
     this.appendTriggerElements()
     return el
+  }
+  activate () {
+    this.setPositionRelative()
+    this.appendTriggerElements()
+  }
+  deactivate () {
+    this.removePositionRelative()
+    this.removeTriggerElements()
   }
 }
 class AppTriggerInsertUnitCloneBefore {
