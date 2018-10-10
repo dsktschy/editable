@@ -12,6 +12,8 @@ class App {
       onClickAppTriggerDownload: this.downloadHtml.bind(this)
     })
     this.onSupportedBrowser = FileReader != null
+    // Output p instead of div on Enter
+    document.execCommand('defaultParagraphSeparator', false, 'p')
   }
   downloadHtml () {
     const el = document.createElement('a')
@@ -59,13 +61,10 @@ class AppBody {
     this.appTriggerDownload = new AppTriggerDownload({
       onClick: onClickAppTriggerDownload
     })
-    this.appTargets = this.createAppTargets()
+    this.appTargets = Array.from(document.querySelectorAll(AppTarget.selector))
+      .map(el => new AppTarget({ el }))
     this.appUnitParents = this.createAppUnitParents()
     this.appendTrigger()
-  }
-  createAppTargets () {
-    return Array.from(document.querySelectorAll(AppTarget.selector))
-      .map(el => new AppTarget({ el }))
   }
   createAppUnitParents () {
     const appUnitElements = Array.from(document.querySelectorAll(AppUnit.selector))
@@ -110,7 +109,12 @@ class AppTarget {
   }
   constructor ({ el }) {
     this.el = el
+    // Wrap first line with p
+    this.el.addEventListener('keydown', this.doIfEmpty.bind(this, paragraphize))
     this.enableToEdit()
+  }
+  doIfEmpty (fn) {
+    if (!this.el.innerHTML) fn()
   }
   enableToEdit () {
     this.el.setAttribute('contenteditable', '')
@@ -259,4 +263,8 @@ function elementize (str = '') {
   const el = document.createElement('div')
   el.innerHTML = str
   return el.firstElementChild
+}
+// Wrap next input with p
+function paragraphize () {
+  document.execCommand('formatBlock', false, 'p')
 }
