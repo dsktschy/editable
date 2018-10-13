@@ -15,13 +15,24 @@ class AppTarget {
   }
   constructor ({ el, onKeydown }) {
     this.el = el
+    this.textContainable = this.isContainable('a')
     this.onKeydown = this.doIfEmpty.bind(this, onKeydown)
+  }
+  isContainable (text) {
+    const elementName = this.el.tagName.toLowerCase()
+    const expectedHtml = `<${elementName}>${text}</${elementName}>`
+    const el = document.createElement('div')
+    el.innerHTML = expectedHtml
+    // If innerHTML is illegal and automatically corrected,
+    // these values don't match before and after assignment
+    return el.innerHTML === expectedHtml
   }
   doIfEmpty (fn) {
     if (!this.el.innerHTML) fn()
   }
   activate () {
     this.el.addEventListener('keydown', this.onKeydown)
+    if (!this.textContainable) return
     this.el.setAttribute('contenteditable', '')
   }
   deactivate () {
