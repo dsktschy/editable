@@ -13,7 +13,7 @@ class AppTarget {
   static get selector () {
     return '[data-editable="target"]'
   }
-  constructor ({ el, paragraphize, convertToPlainText }) {
+  constructor ({ el, paragraphize, convertToPlainText, createLink }) {
     this.el = el
     this.textContainable = this.isContainable('a')
     this.brContainable = this.isContainable('<br>')
@@ -21,9 +21,10 @@ class AppTarget {
     this.bContainable = this.isContainable('<b></b>')
     this.iContainable = this.isContainable('<i></i>')
     this.uContainable = this.isContainable('<u></u>')
+    this.aContainable = this.isContainable('<a></a>')
     this.onKeydown = event => {
       if (this.pContainable) this.doIfEmpty(paragraphize)
-      this.filterShortcut(event)
+      this.filterShortcut(event, { createLink })
     }
     this.onPaste = event => {
       const newlineReplacementString =
@@ -54,7 +55,7 @@ class AppTarget {
     this.el.removeEventListener('paste', this.onPaste)
     this.el.removeEventListener('keydown', this.onKeydown)
   }
-  filterShortcut (event) {
+  filterShortcut (event, { createLink }) {
     const pressedCTRLOrCommand =
       (event.ctrlKey && !event.metaKey) || (event.metaKey && !event.ctrlKey)
     if (
@@ -64,6 +65,10 @@ class AppTarget {
       (!this.iContainable && (event.key === 'i' && pressedCTRLOrCommand)) ||
       (!this.uContainable && (event.key === 'u' && pressedCTRLOrCommand))
     ) event.preventDefault()
+    else if (event.key === 'k' && pressedCTRLOrCommand) {
+      if (!this.aContainable) event.preventDefault()
+      else createLink({ targetBlank: !event.shiftKey })
+    }
   }
 }
 class AppUnitParent {
@@ -196,6 +201,7 @@ class AppTriggerRemoveUnit {
 }
 
 const messageNotSupported = 'This browser is not supported.'
+const messageOnPrompt = 'Enter the destination URL.'
 const fileNameDefault = 'index.html'
 const ua = navigator.userAgent.toLowerCase()
 const app = {}
@@ -224,7 +230,9 @@ function download () {
   el.dispatchEvent(new MouseEvent('click'))
 }
 function createAppTargets ({ appTargetElements }) {
-  return appTargetElements.map(el => new AppTarget({ el, paragraphize, convertToPlainText }))
+  return appTargetElements.map(
+    el => new AppTarget({ el, paragraphize, convertToPlainText, createLink })
+  )
 }
 function createAppUnitParents () {
   const appUnitElements = [ ...document.body.querySelectorAll(AppUnit.selector) ]
@@ -270,5 +278,15 @@ function convertToPlainText (event, { newlineReplacementString }) {
   } else {
     plainText = plainText.replace(/\r?\n/g, newlineReplacementString)
     document.execCommand('insertHTML', false, plainText)
+  }
+}
+function createLink ({ targetBlank }) {
+  const url = new URL(prompt(messageOnPrompt))
+  if (targetBlank) {
+    const selectedText = getSelection().toString()
+    const html = `<a href="${url.href}" target="_blank">${selectedText}</a>`
+    document.execCommand('insertHTML', false, html)
+  } else {
+    document.execCommand('createLink', false, url.href)
   }
 }
