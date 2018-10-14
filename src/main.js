@@ -4,7 +4,7 @@ class AppTriggerDownload {
   static get template () {
     return '<div data-editable="trigger-download"></div>'
   }
-  constructor ({ onClick }) {
+  constructor ({ elementize, onClick }) {
     this.el = elementize(AppTriggerDownload.template)
     this.el.addEventListener('click', onClick)
   }
@@ -13,8 +13,9 @@ class AppTarget {
   static get selector () {
     return '[data-editable="target"]'
   }
-  constructor ({ el, paragraphize, convertToPlainText, createLink }) {
+  constructor ({ el, createDivElement, paragraphize, convertToPlainText, createLink }) {
     this.el = el
+    this.createDivElement = createDivElement
     this.textContainable = this.isContainable('a')
     this.brContainable = this.isContainable('<br>')
     this.pContainable = this.isContainable('<p></p>')
@@ -35,7 +36,7 @@ class AppTarget {
   isContainable (text) {
     const elementName = this.el.tagName.toLowerCase()
     const expectedHtml = `<${elementName}>${text}</${elementName}>`
-    const el = document.createElement('div')
+    const el = this.createDivElement()
     el.innerHTML = expectedHtml
     // If innerHTML is illegal and automatically corrected,
     // these values don't match before and after assignment
@@ -126,12 +127,15 @@ class AppUnit {
       appTargetElements: [ ...this.el.querySelectorAll(AppTarget.selector) ]
     })
     this.appTriggerInsertUnitCloneBefore = new AppTriggerInsertUnitCloneBefore({
+      elementize,
       onClick: () => { onClickAppTriggerInsertUnitCloneBefore(this) }
     })
     this.appTriggerInsertUnitCloneAfter = new AppTriggerInsertUnitCloneAfter({
+      elementize,
       onClick: () => { onClickAppTriggerInsertUnitCloneAfter(this) }
     })
     this.appTriggerRemoveUnit = new AppTriggerRemoveUnit({
+      elementize,
       onClick: () => { onClickAppTriggerRemoveUnit(this) }
     })
     this.editedStyle = false
@@ -176,7 +180,7 @@ class AppTriggerInsertUnitCloneBefore {
   static get template () {
     return '<div data-editable="trigger-insert-unit-clone-before"></div>'
   }
-  constructor ({ onClick }) {
+  constructor ({ elementize, onClick }) {
     this.el = elementize(AppTriggerInsertUnitCloneBefore.template)
     this.el.addEventListener('click', onClick)
   }
@@ -185,7 +189,7 @@ class AppTriggerInsertUnitCloneAfter {
   static get template () {
     return '<div data-editable="trigger-insert-unit-clone-after"></div>'
   }
-  constructor ({ onClick }) {
+  constructor ({ elementize, onClick }) {
     this.el = elementize(AppTriggerInsertUnitCloneAfter.template)
     this.el.addEventListener('click', onClick)
   }
@@ -194,7 +198,7 @@ class AppTriggerRemoveUnit {
   static get template () {
     return '<div data-editable="trigger-remove-unit"></div>'
   }
-  constructor ({ onClick }) {
+  constructor ({ elementize, onClick }) {
     this.el = elementize(AppTriggerRemoveUnit.template)
     this.el.addEventListener('click', onClick)
   }
@@ -209,7 +213,7 @@ const app = {}
 if (ua.indexOf('msie') > -1 || ua.indexOf('trident') > -1) {
   alert(messageNotSupported)
 } else {
-  app.triggerDownload = new AppTriggerDownload({ onClick: download })
+  app.triggerDownload = new AppTriggerDownload({ elementize, onClick: download })
   app.unitParents = createAppUnitParents()
   const appTargetElements = [ ...document.body.querySelectorAll(AppTarget.selector) ]
     .filter(el => el.closest(AppUnit.selector) == null)
@@ -231,7 +235,7 @@ function download () {
 }
 function createAppTargets ({ appTargetElements }) {
   return appTargetElements.map(
-    el => new AppTarget({ el, paragraphize, convertToPlainText, createLink })
+    el => new AppTarget({ el, createDivElement, paragraphize, convertToPlainText, createLink })
   )
 }
 function createAppUnitParents () {
@@ -289,4 +293,7 @@ function createLink ({ targetBlank }) {
   } else {
     document.execCommand('createLink', false, url.href)
   }
+}
+function createDivElement () {
+  return document.createElement('div')
 }
