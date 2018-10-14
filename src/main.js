@@ -13,7 +13,7 @@ class AppTarget {
   static get selector () {
     return '[data-editable="target"]'
   }
-  constructor ({ el, paragraphize }) {
+  constructor ({ el, paragraphize, convertToPlainText }) {
     this.el = el
     this.textContainable = this.isContainable('a')
     this.brContainable = this.isContainable('<br>')
@@ -24,6 +24,11 @@ class AppTarget {
     this.onKeydown = event => {
       if (this.pContainable) this.doIfEmpty(paragraphize)
       this.filterShortcut(event)
+    }
+    this.onPaste = event => {
+      const newlineReplacementString =
+        this.pContainable ? null : this.brContainable ? '<br>' : ''
+      convertToPlainText(event, { newlineReplacementString })
     }
   }
   isContainable (text) {
@@ -39,12 +44,14 @@ class AppTarget {
     if (!this.el.innerHTML) fn()
   }
   activate () {
-    this.el.addEventListener('keydown', this.onKeydown)
     if (!this.textContainable) return
+    this.el.addEventListener('keydown', this.onKeydown)
+    this.el.addEventListener('paste', this.onPaste)
     this.el.setAttribute('contenteditable', '')
   }
   deactivate () {
     this.el.removeAttribute('contenteditable')
+    this.el.removeEventListener('paste', this.onPaste)
     this.el.removeEventListener('keydown', this.onKeydown)
   }
   filterShortcut (event) {
@@ -217,7 +224,7 @@ function download () {
   el.dispatchEvent(new MouseEvent('click'))
 }
 function createAppTargets ({ appTargetElements }) {
-  return appTargetElements.map(el => new AppTarget({ el, paragraphize }))
+  return appTargetElements.map(el => new AppTarget({ el, paragraphize, convertToPlainText }))
 }
 function createAppUnitParents () {
   const appUnitElements = [ ...document.body.querySelectorAll(AppUnit.selector) ]
@@ -254,4 +261,14 @@ function elementize (str = '') {
 // Wrap next input with p
 function paragraphize () {
   document.execCommand('formatBlock', false, 'p')
+}
+function convertToPlainText (event, { newlineReplacementString }) {
+  event.preventDefault()
+  let plainText = event.clipboardData.getData('text/plain') || ''
+  if (newlineReplacementString == null) {
+    document.execCommand('insertText', false, plainText)
+  } else {
+    plainText = plainText.replace(/\r?\n/g, newlineReplacementString)
+    document.execCommand('insertHTML', false, plainText)
+  }
 }
