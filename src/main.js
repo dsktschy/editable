@@ -51,11 +51,11 @@ class AppTarget {
     const pressedCTRLOrCommand =
       (event.ctrlKey && !event.metaKey) || (event.metaKey && !event.ctrlKey)
     if (
-      (!this.brContainable && (event.which === 13 && event.shiftKey)) ||
-      (!this.pContainable && (event.which === 13 && !event.shiftKey)) ||
-      (!this.bContainable && (event.which === 98 && pressedCTRLOrCommand)) ||
-      (!this.iContainable && (event.which === 105 && pressedCTRLOrCommand)) ||
-      (!this.uContainable && (event.which === 117 && pressedCTRLOrCommand))
+      (!this.brContainable && (event.key === 'Enter' && event.shiftKey)) ||
+      (!this.pContainable && (event.key === 'Enter' && !event.shiftKey)) ||
+      (!this.bContainable && (event.key === 'b' && pressedCTRLOrCommand)) ||
+      (!this.iContainable && (event.key === 'i' && pressedCTRLOrCommand)) ||
+      (!this.uContainable && (event.key === 'u' && pressedCTRLOrCommand))
     ) event.preventDefault()
   }
 }
