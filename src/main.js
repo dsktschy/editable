@@ -13,10 +13,14 @@ class AppTarget {
   static get selector () {
     return '[data-editable="target"]'
   }
-  constructor ({ el, onKeydown }) {
+  constructor ({ el, paragraphize }) {
     this.el = el
     this.textContainable = this.isContainable('a')
-    this.onKeydown = this.doIfEmpty.bind(this, onKeydown)
+    this.pContainable = this.isContainable('<p></p>')
+    this.onKeydown = event => {
+      if (this.pContainable) this.doIfEmpty(paragraphize)
+      this.filterShortcut(event)
+    }
   }
   isContainable (text) {
     const elementName = this.el.tagName.toLowerCase()
@@ -38,6 +42,9 @@ class AppTarget {
   deactivate () {
     this.el.removeAttribute('contenteditable')
     this.el.removeEventListener('keydown', this.onKeydown)
+  }
+  filterShortcut (event) {
+    if (!this.pContainable && (event.which === 13 && !event.shiftKey)) event.preventDefault()
   }
 }
 class AppUnitParent {
@@ -196,7 +203,7 @@ function download () {
   el.dispatchEvent(new MouseEvent('click'))
 }
 function createAppTargets ({ appTargetElements }) {
-  return appTargetElements.map(el => new AppTarget({ el, onKeydown: paragraphize }))
+  return appTargetElements.map(el => new AppTarget({ el, paragraphize }))
 }
 function createAppUnitParents () {
   const appUnitElements = [ ...document.body.querySelectorAll(AppUnit.selector) ]
