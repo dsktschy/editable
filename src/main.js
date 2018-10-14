@@ -17,6 +17,7 @@ class AppTarget {
     this.el = el
     this.textContainable = this.isContainable('a')
     this.pContainable = this.isContainable('<p></p>')
+    this.brContainable = this.isContainable('<br>')
     this.onKeydown = event => {
       if (this.pContainable) this.doIfEmpty(paragraphize)
       this.filterShortcut(event)
@@ -44,7 +45,10 @@ class AppTarget {
     this.el.removeEventListener('keydown', this.onKeydown)
   }
   filterShortcut (event) {
-    if (!this.pContainable && (event.which === 13 && !event.shiftKey)) event.preventDefault()
+    if (
+      (!this.pContainable && (event.which === 13 && !event.shiftKey)) ||
+      (!this.brContainable && (event.which === 13 && event.shiftKey))
+    ) event.preventDefault()
   }
 }
 class AppUnitParent {
