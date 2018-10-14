@@ -190,10 +190,12 @@ class AppTriggerRemoveUnit {
 
 const messageNotSupported = 'This browser is not supported.'
 const fileNameDefault = 'index.html'
+const ua = navigator.userAgent.toLowerCase()
 const app = {}
 
-if (FileReader == null) alert(messageNotSupported)
-else {
+if (ua.indexOf('msie') > -1 || ua.indexOf('trident') > -1) {
+  alert(messageNotSupported)
+} else {
   app.triggerDownload = new AppTriggerDownload({ onClick: download })
   app.unitParents = createAppUnitParents()
   const appTargetElements = [ ...document.body.querySelectorAll(AppTarget.selector) ]
