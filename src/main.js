@@ -16,8 +16,11 @@ class AppTarget {
   constructor ({ el, paragraphize }) {
     this.el = el
     this.textContainable = this.isContainable('a')
-    this.pContainable = this.isContainable('<p></p>')
     this.brContainable = this.isContainable('<br>')
+    this.pContainable = this.isContainable('<p></p>')
+    this.bContainable = this.isContainable('<b></b>')
+    this.iContainable = this.isContainable('<i></i>')
+    this.uContainable = this.isContainable('<u></u>')
     this.onKeydown = event => {
       if (this.pContainable) this.doIfEmpty(paragraphize)
       this.filterShortcut(event)
@@ -45,9 +48,14 @@ class AppTarget {
     this.el.removeEventListener('keydown', this.onKeydown)
   }
   filterShortcut (event) {
+    const pressedCTRLOrCommand =
+      (event.ctrlKey && !event.metaKey) || (event.metaKey && !event.ctrlKey)
     if (
+      (!this.brContainable && (event.which === 13 && event.shiftKey)) ||
       (!this.pContainable && (event.which === 13 && !event.shiftKey)) ||
-      (!this.brContainable && (event.which === 13 && event.shiftKey))
+      (!this.bContainable && (event.which === 98 && pressedCTRLOrCommand)) ||
+      (!this.iContainable && (event.which === 105 && pressedCTRLOrCommand)) ||
+      (!this.uContainable && (event.which === 117 && pressedCTRLOrCommand))
     ) event.preventDefault()
   }
 }
