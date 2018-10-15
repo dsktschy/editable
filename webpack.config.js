@@ -6,7 +6,7 @@ module.exports = (env, { mode }) => {
   const dev = mode === 'development'
   return {
     entry: {
-      bundle: path.join(__dirname, 'src/main.js')
+      bundle: path.join(__dirname, 'src/app.js')
     },
     module: {
       rules: [
