@@ -28,10 +28,15 @@ function download () {
   const html = document.documentElement.outerHTML
   activate()
   const doctype = new XMLSerializer().serializeToString(document.doctype)
-  const blob = new Blob([ doctype + html ])
+  const newlineCode = searchFirstNewlineCode(html)
+  const blob = new Blob([ doctype + newlineCode + html ])
   el.setAttribute('download', fileName)
   el.setAttribute('href', URL.createObjectURL(blob))
   el.dispatchEvent(new MouseEvent('click'))
+}
+function searchFirstNewlineCode (html) {
+  let matched = html.match(/(\r\n|\r|\n)/)
+  return matched != null ? matched[0] : ''
 }
 function createAppTargets ({ appTargetElements }) {
   return appTargetElements.map(
